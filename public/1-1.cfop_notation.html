@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3x3 Cube Notation</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+      color:#111;
+      transition:0.3s;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      font-family:sans-serif;
+    }
+
+    header{
+      width:100%;
+      height:85px;
+      background:#050505;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:0 50px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-icon{
+      font-size:22px;
+    }
+
+    .logo h1{
+      color:white;
+      font-size:22px;
+      white-space:nowrap;
+    }
+
+    .yellow{
+      color:#ffd400;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:65px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      padding:28px 0;
+      position:relative;
+      transition: 0.2s;
+    }
+
+    nav > a:hover,
+    .dropdown > a:hover{
+      color:#facc15;
+    }
+
+    nav > a.active,
+    .dropdown > a.active{
+      color:#facc15;
+    }
+
+    nav > a.active::after,
+    .dropdown > a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:18px;
+      width:100%;
+      height:4px;
+      background:#facc15;
+      border-radius:999px;
+    }
+
+    .dropdown{
+      position:relative;
+    }
+
+    .dropdown > a{
+      display:block;
+    }
+
+    .dropdown-menu{
+      position:absolute;
+      top:78px;
+      left:50%;
+      transform:translateX(-50%) translateY(8px);
+
+      min-width:170px;
+      padding:10px;
+
+      background:#111;
+      border-radius:18px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.3);
+
+      opacity:0;
+      visibility:hidden;
+      transition:0.2s;
+      z-index:999;
+    }
+
+    .dropdown:hover .dropdown-menu{
+      opacity:1;
+      visibility:visible;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a{
+      display:block;
+      padding:12px 16px;
+      color:white;
+      font-size:15px;
+      font-weight:700;
+      border-radius:12px;
+      white-space:nowrap;
+    }
+
+    .dropdown-menu a:hover{
+      background:#facc15;
+      color:#111;
+    }
+
+    .active::after{
+      content:"";
+      width:100%;
+      height:3px;
+      background:#ffd400;
+
+      position:absolute;
+      left:0;
+      bottom:-12px;
+
+      border-radius:999px;
+    }
+
+    .icon-btn{
+      width:50px;
+      height:50px;
+
+      border-radius:50%;
+
+      background:#ffd400;
+      color:black;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:22px;
+      transition:0.2s;
+    }
+
+    .icon-btn:hover{
+      border:2px solid white;
+      transform:translateY(-2px);
+    }
+
+    .container{
+      width:95%;
+      margin:30px auto;
+
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+    }
+
+    /* hero */
+
+    .notation-hero{
+      background:white;
+
+      border-radius:28px;
+
+      padding:34px 40px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      border:1px solid #e5e7eb;
+
+      box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .page-label{
+      display:inline-block;
+
+      background:#fff3c4;
+      color:#c89b00;
+
+      padding:7px 14px;
+
+      border-radius:999px;
+
+      font-size:13px;
+      font-weight:bold;
+
+      margin-bottom:16px;
+    }
+
+    .notation-hero h1{
+      font-size:42px;
+      margin-bottom:12px;
+    }
+
+    .notation-hero p{
+      color:#555;
+      font-size:17px;
+      line-height:1.7;
+    }
+
+    /* section */
+
+    .section{
+      background:white;
+
+      border-radius:28px;
+
+      padding:32px;
+
+      box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      font-size:28px;
+      font-weight:bold;
+
+      margin-bottom:24px;
+    }
+
+    .title-bar{
+      width:6px;
+      height:30px;
+
+      background:#ffd400;
+      border-radius:999px;
+    }
+
+    .notation-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:20px;
+    }
+
+    .notation-card{
+      background:#fff7df;
+
+      border-radius:22px;
+
+      padding:24px;
+
+      min-height:160px;
+
+      display:flex;
+      align-items:center;
+
+      transition:0.2s;
+
+      border:1px solid #f3df9c;
+    }
+
+    .notation-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .notation-content{
+      width:100%;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      gap:24px;
+    }
+
+    .notation-text{
+      flex:1;
+    }
+
+    .notation-symbol{
+      display:inline-block;
+
+      background:#ffd400;
+      color:black;
+
+      padding:9px 18px;
+
+      border-radius:999px;
+
+      font-size:23px;
+      font-weight:bold;
+
+      margin-bottom:16px;
+    }
+
+    .notation-desc{
+      color:#555;
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    .notation-image{
+      width:120px;
+      height:120px;
+
+      border-radius:20px;
+
+      background:white;
+
+      overflow:hidden;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      flex-shrink:0;
+    }
+
+    .notation-image img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      padding:0;
+    }
+
+    /* 다크모드 */
+
+    body.dark{
+      background:#111827;
+      color:white;
+    }
+
+    body.dark .notation-hero,
+    body.dark .section,
+    body.dark .notation-card{
+      background:#1f2937;
+      color:white;
+      border-color:#374151;
+      box-shadow:none;
+    }
+
+    body.dark .notation-hero p,
+    body.dark .notation-desc{
+      color:#cbd5e1;
+    }
+
+    body.dark .page-label{
+      background:#374151;
+      color:#ffd400;
+    }
+
+    body.dark .notation-symbol{
+      background:#ffd400;
+      color:black;
+    }
+
+    body.dark .notation-symbol-box{
+      background:#111827;
+      border-color:#374151;
+    }
+
+    body.dark .notation-symbol-box span{
+      background:#ffd400;
+      color:black;
+    }
+
+    body.dark .notation-image{
+      background:#111827;
+      border:1px solid #374151;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      <div class="logo-icon">🧊</div>
+      <h1>Cube <span class="yellow">Algorithms</span></h1>
+    </div>
+
+    <nav>
+      <a href="home.html">홈</a>
+
+      <div class="dropdown">
+        <a href="1-0.cfop.html" class="active">CFOP</a>
+        <div class="dropdown-menu">
+          <a href="1-2.cfop_cross.html">Cross</a>
+          <a href="1-3.cfop_f2l.html">F2L</a>
+          <a href="1-4.cfop_oll.html">OLL</a>
+          <a href="1-5.cfop_pll.html">PLL</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Links</a>
+        <div class="dropdown-menu">
+          <a href="wca.html">WCA</a>
+          <a href="cubemania.html">큐브매니아</a>
+          <a href="cstimer.html">csTimer</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Utilities</a>
+        <div class="dropdown-menu">
+          <a href="Ao5.html">Ao5 Calculator</a>
+          <a href="competition-recap.html">Competition Recap</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="icon-btn" id="themeBtn">⛭</div>
+
+  </header>
+
+  <div class="container">
+
+    <div class="notation-hero">
+
+      <div>
+        <div class="page-label">CUBE NOTATION GUIDE</div>
+
+        <h1>
+          Cube Notation <span class="yellow">(3x3)</span>
+        </h1>
+
+        <p>
+          큐브 공식에 사용되는 기본 기호입니다<br>
+          각 기호가 의미하는 면과 회전 방향을 알아보세요<br></br>
+          (※ 사진은 각 기호의 기본 형태만 제공합니다)
+        </p>
+      </div>
+
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <div class="title-bar"></div>
+        Basic Moves
+      </div>
+
+      <div class="notation-grid">
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">R &nbsp; R' &nbsp; R2</div>
+              <div class="notation-desc">오른쪽 면 시계 방향 회전 / 반시계 방향 회전 / 두 번 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/R.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">L &nbsp; L' &nbsp; L2</div>
+              <div class="notation-desc">왼쪽 면 시계 방향 회전 / 반시계 방향 회전 / 두 번 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/L.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">U &nbsp; U' &nbsp; U2</div>
+              <div class="notation-desc">윗면 시계 방향 회전 / 반시계 방향 회전 / 두 번 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/U.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">D &nbsp; D' &nbsp; D2</div>
+              <div class="notation-desc">아랫면 시계 방향 회전 / 반시계 방향 회전 / 두 번 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/D.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">F &nbsp; F' &nbsp; F2</div>
+              <div class="notation-desc">앞면 시계 방향 회전 / 반시계 방향 회전 / 두 번 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/F.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">B &nbsp; B' &nbsp; B2</div>
+              <div class="notation-desc">뒷면 시계 방향 회전 / 반시계 방향 회전 / 두 번 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/B.jpg">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <div class="title-bar"></div>
+        Wide Moves
+      </div>
+
+      <div class="notation-grid">
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">r &nbsp; r' &nbsp; r2</div>
+              <div class="notation-desc">오른쪽 두 줄 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/rr.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">l &nbsp; l' &nbsp; l2</div>
+              <div class="notation-desc">왼쪽 두 줄 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/ll.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">u &nbsp; u' &nbsp; u2</div>
+              <div class="notation-desc">윗면 두 줄 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/uu.jpg">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <div class="title-bar"></div>
+        Slice Moves
+      </div>
+
+      <div class="notation-grid">
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">M &nbsp; M'</div>
+              <div class="notation-desc">가운데 세로층 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/M.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">E &nbsp; E'</div>
+              <div class="notation-desc">가운데 가로층 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/E.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">S &nbsp; S'</div>
+              <div class="notation-desc">가운데 앞뒤층 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/S.jpg">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        <div class="title-bar"></div>
+        Cube Rotations
+      </div>
+
+      <div class="notation-grid">
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">x &nbsp; x'</div>
+              <div class="notation-desc">큐브 전체 X축 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/X.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">y &nbsp; y'</div>
+              <div class="notation-desc">큐브 전체 Y축 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/Y.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="notation-card">
+          <div class="notation-content">
+            <div class="notation-text">
+              <div class="notation-symbol">z &nbsp; z'</div>
+              <div class="notation-desc">큐브 전체 Z축 회전</div>
+            </div>
+            <div class="notation-image">
+              <img src="notation/Z.jpg">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", function(){
+      document.body.classList.toggle("dark");
+
+      if(document.body.classList.contains("dark")){
+        themeBtn.innerHTML = "☾";
+      }
+      else{
+        themeBtn.innerHTML = "⛭";
+      }
+    });
+  </script>
+
+</body>
+</html>

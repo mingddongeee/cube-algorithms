@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFOP F2L</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+      color:#111;
+      transition:0.3s;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      font-family:sans-serif;
+    }
+
+    header{
+      width:100%;
+      height:85px;
+      background:#050505;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:0 50px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-icon{
+      font-size:22px;
+    }
+
+    .logo h1{
+      color:white;
+      font-size:22px;
+      white-space:nowrap;
+    }
+
+    .yellow{
+      color:#ffd400;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:65px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      padding:28px 0;
+      position:relative;
+      transition: 0.2s;
+    }
+
+    nav > a:hover,
+    .dropdown > a:hover{
+      color:#facc15;
+    }
+
+    nav > a.active,
+    .dropdown > a.active{
+      color:#facc15;
+    }
+
+    nav > a.active::after,
+    .dropdown > a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:18px;
+      width:100%;
+      height:4px;
+      background:#facc15;
+      border-radius:999px;
+    }
+
+    .dropdown{
+      position:relative;
+    }
+
+    .dropdown > a{
+      display:block;
+    }
+
+    .dropdown-menu{
+      position:absolute;
+      top:78px;
+      left:50%;
+      transform:translateX(-50%) translateY(8px);
+
+      min-width:170px;
+      padding:10px;
+
+      background:#111;
+      border-radius:18px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.3);
+
+      opacity:0;
+      visibility:hidden;
+      transition:0.2s;
+      z-index:999;
+    }
+
+    .dropdown:hover .dropdown-menu{
+      opacity:1;
+      visibility:visible;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a{
+      display:block;
+      padding:12px 16px;
+      color:white;
+      font-size:15px;
+      font-weight:700;
+      border-radius:12px;
+      white-space:nowrap;
+    }
+
+    .dropdown-menu a:hover{
+      background:#facc15;
+      color:#111;
+    }
+
+    .active::after{
+      content:"";
+      width:100%;
+      height:3px;
+      background:#ffd400;
+
+      position:absolute;
+      left:0;
+      bottom:-12px;
+
+      border-radius:999px;
+    }
+
+    .icon-btn{
+      width:50px;
+      height:50px;
+
+      border-radius:50%;
+
+      background:#ffd400;
+      color:black;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:22px;
+      transition:0.2s;
+    }
+
+    .icon-btn:hover{
+      border:2px solid white;
+      transform:translateY(-2px);
+    }
+
+    .container{
+      width:95%;
+      margin:30px auto;
+
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+    }
+
+    /* hero */
+
+    .hero{
+      background:#fff7df;
+
+      border-radius:30px;
+
+      padding:55px 70px;
+
+      min-height:330px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      position:relative;
+      overflow:hidden;
+
+      border:1px solid #f3df9c;
+    }
+
+    .hero::after{
+      content:"";
+
+      width:180px;
+      height:180px;
+
+      border:5px solid #ffe58a;
+      border-radius:25px;
+
+      position:absolute;
+      right:-40px;
+      bottom:-35px;
+
+      opacity:0.35;
+    }
+
+    .hero-text{
+      position:relative;
+      z-index:2;
+    }
+
+    .page-label{
+      display:inline-block;
+
+      background:#ffd400;
+      color:black;
+
+      padding:8px 16px;
+
+      border-radius:999px;
+
+      font-size:14px;
+      font-weight:bold;
+
+      margin-bottom:18px;
+    }
+
+    .hero-text h1{
+      font-size:72px;
+      margin-bottom:22px;
+    }
+
+    .hero-text p{
+      font-size:20px;
+      line-height:1.7;
+      color:#333;
+
+      margin-bottom:28px;
+    }
+
+    .hero-visual{
+      width:330px;
+      height:250px;
+
+      position:relative;
+      z-index:2;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .hero-img{
+      width:330px;
+      height:auto;
+
+      border-radius:24px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#c89b00;
+      font-weight:bold;
+      font-size:18px;
+    }
+
+    .hero-img img{
+      width:300px;
+      height:auto;
+      object-fit:contain;
+    }
+
+    /* section */
+
+    .section{
+      background:white;
+
+      border-radius:28px;
+
+      padding:32px;
+
+      box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+
+      font-size:26px;
+      font-weight:bold;
+
+      margin-bottom:22px;
+    }
+
+    .section-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        gap:30px;
+        margin-bottom:24px;
+    }
+
+    .section-header .section-title{
+       margin-bottom:0;
+    }
+
+    .video-link{
+        background:#fff7df;
+        color:#8a6a00;
+
+        border:1px solid #f3df9c;
+
+        padding:14px 20px;
+
+        border-radius:14px;
+
+        font-weight:bold;
+
+        white-space:nowrap;
+
+        transition:0.2s;
+
+        margin-top:6px;
+    }
+
+    .video-link:hover{
+       transform:translateY(-3px);
+    }
+
+    .title-bar{
+      width:6px;
+      height:30px;
+
+      background:#ffd400;
+
+      border-radius:999px;
+    }
+
+    /* start info */
+
+    .basic-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+      margin-bottom:22px;
+    }
+
+    .basic-card{
+      background:white;
+
+      border:1px solid #e5e7eb;
+
+      border-radius:22px;
+
+      padding:26px;
+
+      min-height:210px;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+
+      transition:0.2s;
+    }
+
+    .basic-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .basic-card h3{
+      font-size:24px;
+      margin-bottom:12px;
+    }
+
+    .basic-card h3::before{
+      content:"●";
+      color:#ffd400;
+      margin-right:8px;
+    }
+
+    .basic-card p{
+      color:#555;
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    .basic-img{
+      width:115px;
+      height:115px;
+
+      margin:18px auto 0;
+
+      border-radius:22px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#c89b00;
+      font-weight:bold;
+      font-size:14px;
+    }
+
+    .basic-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      padding: 0;
+      border-radius: 22px;
+    }
+
+    .basic-img2{
+      width:230px;
+      height:120px;
+
+      margin:18px auto 0;
+
+      border-radius:22px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#c89b00;
+      font-weight:bold;
+      font-size:14px;
+    }
+
+    .basic-img2 img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      padding: 0;
+      border-radius: 22px;
+    }
+
+    .goal-note{
+      background:#fff7df;
+      color:#111;
+
+      border-radius:22px;
+
+      padding:24px 28px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      gap:24px;
+
+      border:1px solid #f3df9c;
+    }
+
+    .goal-note h3{
+      font-size:24px;
+      margin-bottom:8px;
+    }
+
+    .goal-note p{
+      color:#555;
+      line-height:1.6;
+      font-size:16px;
+    }
+
+    .goal-text{
+      flex:1;
+    }
+
+    .pair-flow{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+
+    .pair-box{
+      background:#ffd400;
+      color:black;
+
+      padding:10px 16px;
+
+      border-radius:999px;
+
+      font-weight:bold;
+      font-size:15px;
+      white-space:nowrap;
+    }
+
+    .flow-arrow{
+      font-size:24px;
+      font-weight:bold;
+      color:#111;
+    }
+
+    /* steps */
+
+    .step-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:20px;
+      align-items:stretch;
+    }
+
+    .step-card{
+      background:white;
+
+      border:1px solid #e5e7eb;
+
+      border-radius:22px;
+
+      padding:24px;
+
+      text-align:center;
+
+      min-height:300px;
+
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:space-between;
+
+      transition:0.2s;
+    }
+
+    .step-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .step-num{
+      width:34px;
+      height:34px;
+
+      background:#ffd400;
+      color:black;
+
+      border-radius:50%;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-weight:bold;
+
+      margin:0 auto 16px;
+    }
+
+    .step-card h3{
+      font-size:20px;
+      margin-bottom:12px;
+    }
+
+    .step-card p{
+      color:#555;
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .step-img{
+      width:110px;
+      height:110px;
+
+      margin-top:18px;
+
+      border-radius:22px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#c89b00;
+      font-weight:bold;
+      font-size:14px;
+    }
+
+    .step-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      padding: 0;
+      border-radius: 22px;
+    }
+
+    /* formulas */
+
+    .formula-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:20px;
+    }
+
+    .formula-card{
+      background:white;
+
+      border:1px solid #e5e7eb;
+
+      border-radius:22px;
+
+      padding:24px;
+
+      min-height:280px;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+
+      transition:0.2s;
+    }
+
+    .formula-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .formula-name{
+      font-size:20px;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .formula-name::before{
+      content:"●";
+      color:#ffd400;
+      margin-right:8px;
+    }
+
+    .formula-desc{
+      color:#555;
+      font-size:15px;
+      line-height:1.6;
+      margin-bottom:16px;
+    }
+
+    .formula-code{
+        display:table;
+
+        margin:0 auto 16px;
+
+        background:#fff1b8;
+        color:#111;
+
+        padding:10px 18px;
+
+        border-radius:999px;
+
+        font-size:20px;
+        font-weight:bold;
+
+        text-align:center;
+    }
+
+    .formula-img{
+      width:110px;
+      height:110px;
+
+      margin:0 auto;
+
+      border-radius:22px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#c89b00;
+      font-weight:bold;
+      font-size:14px;
+    }
+
+    .formula-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      padding: 0;
+      border-radius: 22px;
+    }
+
+    /* tips */
+
+    .tip-section{
+      display:flex;
+      align-items:center;
+      gap:40px;
+    }
+
+    .tip-icon{
+      width:120px;
+      height:120px;
+
+      background:white;
+      border:4px solid #ffd400;
+
+      border-radius:50%;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:48px;
+
+      flex-shrink:0;
+    }
+
+    .tip-list{
+      flex:1;
+
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .tip-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+
+      font-size:17px;
+      line-height:1.6;
+      color:#333;
+    }
+
+    .check{
+      width:24px;
+      height:24px;
+
+      background:#ffd400;
+      color:black;
+
+      border-radius:50%;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:14px;
+      font-weight:bold;
+
+      flex-shrink:0;
+    }
+
+    .tip-img{
+      width:180px;
+      height:140px;
+
+      border-radius:20px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#c89b00;
+      font-weight:bold;
+
+      flex-shrink:0;
+    }
+
+    .tip-img img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    /* next */
+
+    .next-box{
+      background:#fff7df;
+
+      border:1px solid #f3df9c;
+
+      border-radius:28px;
+
+      padding:34px 48px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    .next-box::after{
+      content:"";
+
+      width:130px;
+      height:130px;
+
+      border:5px solid #ffe58a;
+
+      position:absolute;
+      left:35%;
+      bottom:-35px;
+
+      opacity:0.25;
+
+      border-radius:22px;
+    }
+
+    .next-label{
+      font-size:18px;
+      font-weight:bold;
+      margin-bottom:8px;
+    }
+
+    .next-box h2{
+      font-size:46px;
+      margin-bottom:8px;
+    }
+
+    .next-box p{
+      color:#333;
+      line-height:1.6;
+      font-size:17px;
+    }
+
+    .next-btn{
+      background:#ffd400;
+      color:black;
+
+      padding:20px 42px;
+
+      border-radius:16px;
+
+      font-size:22px;
+      font-weight:bold;
+
+      transition:0.2s;
+
+      position:relative;
+      z-index:2;
+    }
+
+    .next-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(255,212,0,0.25);
+    }
+
+    .next-arrow{
+      font-size:72px;
+      font-weight:bold;
+
+      color:#ffd400;
+
+      opacity:0.9;
+
+      flex:1;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      position:relative;
+      z-index:2;
+    }
+
+    /* 다크모드 */
+
+    body.dark{
+      background:#111827;
+      color:white;
+    }
+
+    body.dark .hero,
+    body.dark .next-box,
+    body.dark .section{
+      background:#1f2937;
+      border-color:#374151;
+      box-shadow:none;
+    }
+
+    body.dark .hero-text p,
+    body.dark .next-box p{
+      color:#cbd5e1;
+    }
+
+    body.dark .basic-card,
+    body.dark .step-card,
+    body.dark .formula-card{
+      background:#1f2937;
+      color:white;
+      border-color:#374151;
+      box-shadow:none;
+    }
+
+    body.dark .basic-card p,
+    body.dark .step-card p,
+    body.dark .formula-desc,
+    body.dark .tip-item{
+      color:#cbd5e1;
+    }
+
+    body.dark .hero::after,
+    body.dark .next-box::after{
+      border-color:#374151;
+    }
+
+    body.dark .hero-img,
+    body.dark .basic-img,
+    body.dark .step-img,
+    body.dark .formula-img,
+    body.dark .tip-img{
+      color:#ffd400;
+    }
+
+    body.dark .ring{
+      border-color:#ffd400;
+      opacity:0.4;
+    }
+
+    body.dark .goal-note{
+      background:#1f2937;
+      color:white;
+      border:1px solid #374151;
+    }
+
+    body.dark .goal-note p{
+      color:#cbd5e1;
+    }
+
+    body.dark .flow-arrow{
+      color:white;
+    }
+
+    body.dark .formula-code{
+        background:#374151;
+        color:#ffd400;
+        border:none;
+    }
+
+    body.dark .tip-icon{
+      background:#1f2937;
+      border-color:#ffd400;
+    }
+
+    body.dark .check{
+      background:#ffd400;
+      color:black;
+    }
+
+    body.dark .video-link{
+      background:#374151;
+      color:#ffd400;
+      border-color:#4b5563;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      <div class="logo-icon">🧊</div>
+      <h1>Cube <span class="yellow">Algorithms</span></h1>
+    </div>
+
+    <nav>
+      <a href="home.html">홈</a>
+
+      <div class="dropdown">
+        <a href="1-0.cfop.html" class="active">CFOP</a>
+        <div class="dropdown-menu">
+          <a href="1-2.cfop_cross.html">Cross</a>
+          <a href="1-3.cfop_f2l.html">F2L</a>
+          <a href="1-4.cfop_oll.html">OLL</a>
+          <a href="1-5.cfop_pll.html">PLL</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Links</a>
+        <div class="dropdown-menu">
+          <a href="wca.html">WCA</a>
+          <a href="cubemania.html">큐브매니아</a>
+          <a href="cstimer.html">csTimer</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Utilities</a>
+        <div class="dropdown-menu">
+          <a href="Ao5.html">Ao5 Calculator</a>
+          <a href="competition-recap.html">Competition Recap</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="icon-btn" id="themeBtn">⛭</div>
+
+  </header>
+
+  <div class="container">
+
+    <div class="hero">
+
+      <div class="hero-text">
+
+        <div class="page-label">CFOP · STEP 2</div>
+
+        <h1>F2L</h1>
+
+        <p>
+          First Two Layers의 줄임말로,<br>
+          1층 코너와 2층 엣지를 한 쌍으로 맞추는 단계입니다
+        </p>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="hero-img">
+          <img src="f2l/f2l.png" alt="f2l">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        F2L 시작 전 알아두기
+      </div>
+
+      <div class="basic-grid">
+
+        <div class="basic-card">
+          <div>
+            <h3>Pair</h3>
+            <p>
+              같은 위치에 들어갈<br>
+              코너와 엣지 조각 한 쌍
+            </p>
+          </div>
+
+          <div class="basic-img">
+            <img src="f2l/pair.png" alt="pair">
+          </div>
+        </div>
+
+        <div class="basic-card">
+          <div>
+            <h3>Slot</h3>
+            <p>
+              Pair를 넣어야 하는 자리<br>
+              왼쪽 Slot과 오른쪽 Slot 존재
+            </p>
+          </div>
+
+          <div class="basic-img">
+            <img src="f2l/slot.png" alt="slot">
+          </div>
+        </div>
+
+        <div class="basic-card">
+          <div>
+            <h3>Insert</h3>
+            <p>
+              만든 Pair를 Slot에 넣어<br>
+              1층과 2층을 완성하는 과정
+            </p>
+          </div>
+
+          <div class="basic-img2">
+            <img src="f2l/insert.png" alt="insert">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="goal-note">
+
+        <div class="goal-text">
+          <h3>F2L의 목표</h3>
+          <p>
+            코너와 엣지를 따로 맞추지 않고 Pair로 만들어 Slot에 넣는 것이 핵심입니다
+          </p>
+        </div>
+
+        <div class="pair-flow">
+          <div class="pair-box">1st Pair</div>
+          <div class="flow-arrow">→</div>
+          <div class="pair-box">2nd Pair</div>
+          <div class="flow-arrow">→</div>
+          <div class="pair-box">3rd Pair</div>
+          <div class="flow-arrow">→</div>
+          <div class="pair-box">4th Pair</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        F2L 기본 흐름
+      </div>
+
+      <div class="step-grid">
+
+        <div class="step-card">
+          <div>
+            <div class="step-num">1</div>
+            <h3>Pair 찾기</h3>
+            <p>
+              맞춰야 할 코너와 엣지를<br>
+              큐브에서 먼저 찾아봅니다
+            </p>
+          </div>
+
+          <div class="step-img">
+            <img src="f2l/1.pair 찾기.png">
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div>
+            <div class="step-num">2</div>
+            <h3>Pair 만들기</h3>
+            <p>
+              필요한 경우 알고리즘으로<br>
+              코너와 엣지를 연결합니다
+            </p>
+          </div>
+
+          <div class="step-img">
+            <img src="f2l/2.pair 만들기.png">
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div>
+            <div class="step-num">3</div>
+            <h3>Slot 확인</h3>
+            <p>
+              Pair가 들어갈 자리가<br>
+              왼쪽인지 오른쪽인지 확인합니다
+            </p>
+          </div>
+
+          <div class="step-img">
+            <img src="f2l/3.slot 확인.png">
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div>
+            <div class="step-num">4</div>
+            <h3>Pair 삽입</h3>
+            <p>
+              만든 Pair를 Slot에 넣어<br>
+              1층과 2층을 동시에 맞춥니다
+            </p>
+          </div>
+
+          <div class="step-img">
+            <img src="f2l/4.pair 삽입.png">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-header">
+
+        <div class="section-title">
+          <div class="title-bar"></div>
+          F2L 대표 공식
+        </div>
+
+        <a href="https://youtu.be/npoWOTF-BKg?si=oPB1zBc8z-9h5S6l" target="_blank" class="video-link">
+          ▶ F2L 강의 영상 →
+        </a>
+
+      </div>
+
+      <div class="formula-grid">
+
+        <div class="formula-card">
+          <div>
+            <div class="formula-name">Twist</div>
+            <p class="formula-desc">
+              가장 기본 공식으로<br>
+              Pair를 만들거나 꺼낼 때 자주 사용
+            </p>
+            <div class="formula-code">R U R' U'</div>
+          </div>
+
+          <div class="formula-img">
+            <img src="f2l/twist.png">
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <div>
+            <div class="formula-name">Reverse Twist</div>
+            <p class="formula-desc">
+              Twist의 반대 공식으로<br>
+              다른 방향의 Pair 처리에 사용
+            </p>
+            <div class="formula-code">U R U' R'</div>
+          </div>
+
+          <div class="formula-img">
+            <img src="f2l/reverse twist  sledgehammer.png">
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <div>
+            <div class="formula-name">Sledgehammer</div>
+            <p class="formula-desc">
+              Pair를 정리하거나 방향을 바꿀 때<br>
+              자주 쓰이는 기본 공식
+            </p>
+            <div class="formula-code">R' F R F'</div>
+          </div>
+
+          <div class="formula-img">
+            <img src="f2l/reverse twist  sledgehammer.png">
+          </div>
+        </div>
+
+        <div class="formula-card">
+          <div>
+            <div class="formula-name">Hedgehammer</div>
+            <p class="formula-desc">
+              Sledgehammer의 반대 공식으로<br>
+              F2L에서 보조적으로 사용
+            </p>
+            <div class="formula-code">F R' F' R</div>
+          </div>
+
+          <div class="formula-img">
+            <img src="f2l/hedgehammer.png">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        좋은 F2L 습관
+      </div>
+
+      <div class="tip-section">
+
+        <div class="tip-icon">💡</div>
+
+        <div class="tip-list">
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            Pair를 만들 때 이미 맞춰진 Slot을 망가뜨리지 않도록 주의합니다
+          </div>
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            빈 Slot을 활용하면 Pair를 더 쉽게 만들 수 있습니다
+          </div>
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            한 Pair를 넣는 동안 다음 Pair를 미리 찾아봅니다 (= Look Ahead: 루커헤드)
+          </div>
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            큐브 전체를 돌리는 Rotation(로테이션)을 줄이는 것을 목표로 합니다
+          </div>
+
+        </div>
+
+        <div class="tip-img">
+          <img src="f2l/f2l.png">
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="next-box">
+
+      <div>
+        <div class="next-label">다음 단계</div>
+
+        <h2>OLL</h2>
+
+        <p>
+          윗면 색을 맞추는<br>
+          CFOP의 세 번째 단계입니다
+        </p>
+      </div>
+
+      <div class="next-arrow">⟶</div>
+
+      <a href="1-4.cfop_oll.html">
+        <button class="next-btn">OLL 단계로 이동 →</button>
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", function(){
+      document.body.classList.toggle("dark");
+
+      if(document.body.classList.contains("dark")){
+        themeBtn.innerHTML = "☾";
+      }
+      else{
+        themeBtn.innerHTML = "⛭";
+      }
+    });
+  </script>
+
+</body>
+</html>

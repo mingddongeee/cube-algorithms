@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>큐브 매니아</title>
+
+  <style>
+    *{ margin:0; padding:0; box-sizing:border-box; }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+      color:#111;
+      transition:0.3s;
+    }
+
+    a{ text-decoration:none; color:inherit; }
+
+    button{
+      border:none;
+      cursor:pointer;
+      font-family:sans-serif;
+    }
+
+    header{
+      width:100%;
+      height:85px;
+      background:#050505;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 50px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-icon{ font-size:22px; }
+
+    .logo h1{
+      color:white;
+      font-size:22px;
+      white-space:nowrap;
+    }
+
+    .yellow{ color:#ffd400; }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:65px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      padding:28px 0;
+      position:relative;
+      transition: 0.2s;
+    }
+
+    nav > a:hover,
+    .dropdown > a:hover{
+      color:#facc15;
+    }
+
+    nav > a.active,
+    .dropdown > a.active{
+      color:#facc15;
+    }
+
+    nav > a.active::after,
+    .dropdown > a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:18px;
+      width:100%;
+      height:4px;
+      background:#facc15;
+      border-radius:999px;
+    }
+
+    .dropdown{
+      position:relative;
+    }
+
+    .dropdown > a{
+      display:block;
+    }
+
+    .dropdown-menu{
+      position:absolute;
+      top:78px;
+      left:50%;
+      transform:translateX(-50%) translateY(8px);
+
+      min-width:170px;
+      padding:10px;
+
+      background:#111;
+      border-radius:18px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.3);
+
+      opacity:0;
+      visibility:hidden;
+      transition:0.2s;
+      z-index:999;
+    }
+
+    .dropdown:hover .dropdown-menu{
+      opacity:1;
+      visibility:visible;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a{
+      display:block;
+      padding:12px 16px;
+      color:white;
+      font-size:15px;
+      font-weight:700;
+      border-radius:12px;
+      white-space:nowrap;
+    }
+
+    .dropdown-menu a:hover{
+      background:#facc15;
+      color:#111;
+    }
+
+    .active::after{
+      content:"";
+      width:100%;
+      height:3px;
+      background:#ffd400;
+      position:absolute;
+      left:0;
+      bottom:-12px;
+      border-radius:999px;
+    }
+
+    .icon-btn{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:#ffd400;
+      color:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:22px;
+      transition:0.2s;
+      cursor:pointer;
+    }
+
+    .icon-btn:hover{
+      border:2px solid white;
+      transform:translateY(-2px);
+    }
+
+    .container{
+      width:95%;
+      margin:30px auto;
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+    }
+
+    .hero{
+      background:#fff7df;
+      border-radius:30px;
+      padding:55px 70px;
+      min-height:330px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      border:1px solid #f3df9c;
+    }
+
+    .hero::after{
+      content:"";
+      width:180px;
+      height:180px;
+      border:5px solid #ffe58a;
+      border-radius:25px;
+      position:absolute;
+      right:-40px;
+      bottom:-35px;
+      opacity:0.35;
+    }
+
+    .hero-text{
+      position:relative;
+      z-index:2;
+    }
+
+    .page-label{
+      display:inline-block;
+      background:#ffd400;
+      color:black;
+      padding:8px 16px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:bold;
+      margin-bottom:18px;
+    }
+
+    .hero-text h1{
+      font-size:72px;
+      margin-bottom:22px;
+    }
+
+    .hero-text p{
+      font-size:20px;
+      line-height:1.7;
+      color:#333;
+    }
+
+    .start-btn{
+      display:inline-block;
+      background:#ffd400;
+      color:black;
+      padding:16px 28px;
+      border-radius:14px;
+      font-size:18px;
+      font-weight:bold;
+      margin-top:26px;
+      transition:0.2s;
+    }
+
+    .start-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(255,212,0,0.25);
+    }
+
+    .hero-visual{
+      width:650px;
+      height:350px;
+      position:relative;
+      z-index:2;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .hero-img{
+      width:650px;
+      height:350px;
+      border-radius:24px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#c89b00;
+      font-weight:bold;
+      font-size:18px;
+    }
+
+    .hero-img img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    .section{
+      background:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:26px;
+      font-weight:bold;
+      margin-bottom:14px;
+    }
+
+    .title-bar{
+      width:6px;
+      height:30px;
+      background:#ffd400;
+      border-radius:999px;
+    }
+
+    .section-desc{
+      color:#555;
+      font-size:16px;
+      line-height:1.8;
+      margin-bottom:24px;
+    }
+
+    .community-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:20px;
+      margin-top:24px;
+    }
+
+    .community-card{
+      background:white;
+      border:1px solid #e5e7eb;
+      border-radius:22px;
+      padding:24px;
+      min-height:220px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      transition:0.2s;
+    }
+
+    .community-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .community-icon{
+      width:56px;
+      height:56px;
+      background:#ffd400;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:26px;
+      margin-bottom:16px;
+    }
+
+    .community-card h3{
+      font-size:19px;
+      margin-bottom:10px;
+    }
+
+    .community-card p{
+      color:#555;
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .recommend-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+      margin-top:24px;
+    }
+
+    .recommend-card{
+      background:#fff7df;
+      border:1px solid #f3df9c;
+      border-radius:22px;
+      padding:26px;
+    }
+
+    .recommend-card h3{
+      font-size:21px;
+      margin-bottom:12px;
+    }
+
+    .recommend-card p{
+      color:#555;
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .tag{
+      display:inline-block;
+      background:#ffd400;
+      color:black;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:bold;
+      margin-bottom:14px;
+    }
+
+    .tip-section{
+      display:flex;
+      align-items:center;
+      gap:40px;
+    }
+
+    .tip-icon{
+      width:120px;
+      height:120px;
+      background:white;
+      border:4px solid #ffd400;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:48px;
+      flex-shrink:0;
+    }
+
+    .tip-list{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .tip-item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      font-size:17px;
+      line-height:1.6;
+      color:#333;
+    }
+
+    .check{
+      width:24px;
+      height:24px;
+      background:#ffd400;
+      color:black;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:14px;
+      font-weight:bold;
+      flex-shrink:0;
+    }
+
+    .tip-img{
+      width:180px;
+      height:140px;
+      border-radius:20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-shrink:0;
+      color:#c89b00;
+      font-weight:bold;
+    }
+
+    .tip-img img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:22px;
+    }
+
+    .next-box{
+      background:#fff7df;
+      border:1px solid #f3df9c;
+      border-radius:28px;
+      padding:34px 48px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .next-box::after{
+      content:"";
+      width:130px;
+      height:130px;
+      border:5px solid #ffe58a;
+      position:absolute;
+      left:35%;
+      bottom:-35px;
+      opacity:0.25;
+      border-radius:22px;
+    }
+
+    .next-label{
+      font-size:18px;
+      font-weight:bold;
+      margin-bottom:8px;
+    }
+
+    .next-box h2{
+      font-size:46px;
+      margin-bottom:8px;
+    }
+
+    .next-box p{
+      color:#333;
+      line-height:1.6;
+      font-size:17px;
+    }
+
+    .next-btn{
+      background:#ffd400;
+      color:black;
+      padding:20px 42px;
+      border-radius:16px;
+      font-size:22px;
+      font-weight:bold;
+      transition:0.2s;
+      position:relative;
+      z-index:2;
+      display:inline-block;
+    }
+
+    .next-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(255,212,0,0.25);
+    }
+
+    .next-arrow{
+      font-size:72px;
+      font-weight:bold;
+      color:#ffd400;
+      opacity:0.9;
+      flex:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    body.dark{
+      background:#111827;
+      color:white;
+    }
+
+    body.dark .hero,
+    body.dark .section,
+    body.dark .next-box{
+      background:#1f2937;
+      border-color:#374151;
+      box-shadow:none;
+    }
+
+    body.dark .hero-text p,
+    body.dark .section-desc,
+    body.dark .next-box p{
+      color:#cbd5e1;
+    }
+
+    body.dark .community-card{
+      background:#1f2937;
+      color:white;
+      border-color:#374151;
+      box-shadow:none;
+    }
+
+    body.dark .community-card p,
+    body.dark .tip-item{
+      color:#cbd5e1;
+    }
+
+    body.dark .recommend-card{
+      background:#111827;
+      border-color:#374151;
+    }
+
+    body.dark .recommend-card p{
+      color:#cbd5e1;
+    }
+
+    body.dark .hero::after,
+    body.dark .next-box::after{
+      border-color:#374151;
+    }
+
+    body.dark .hero-img,
+    body.dark .tip-img{
+      color:#ffd400;
+    }
+
+    body.dark .ring{
+      border-color:#ffd400;
+      opacity:0.4;
+    }
+
+    body.dark .tip-icon{
+      background:#1f2937;
+      border-color:#ffd400;
+    }
+
+    body.dark .check{
+      background:#ffd400;
+      color:black;
+    }
+
+    @media(max-width:1200px){
+      .community-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      .recommend-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:1000px){
+      nav{
+        gap:20px;
+      }
+
+      .hero{
+        padding:45px 35px;
+      }
+
+      .tip-section,
+      .next-box{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    @media(max-width:650px){
+      header{
+        padding:0 20px;
+      }
+
+      nav{
+        display:none;
+      }
+
+      .hero{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .hero-text h1{
+        font-size:48px;
+      }
+
+      .community-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      <div class="logo-icon">🧊</div>
+      <h1>Cube <span class="yellow">Algorithms</span></h1>
+    </div>
+
+    <nav>
+      <a href="home.html">홈</a>
+
+      <div class="dropdown">
+        <a href="1-0.cfop.html">CFOP</a>
+        <div class="dropdown-menu">
+          <a href="1-2.cfop_cross.html">Cross</a>
+          <a href="1-3.cfop_f2l.html">F2L</a>
+          <a href="1-4.cfop_oll.html">OLL</a>
+          <a href="1-5.cfop_pll.html">PLL</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#" class="active">Links</a>
+        <div class="dropdown-menu">
+          <a href="wca.html">WCA</a>
+          <a href="cubemania.html">큐브매니아</a>
+          <a href="cstimer.html">csTimer</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Utilities</a>
+        <div class="dropdown-menu">
+          <a href="Ao5.html">Ao5 Calculator</a>
+          <a href="competition-recap.html">Competition Recap</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="icon-btn" id="themeBtn">⛭</div>
+
+  </header>
+
+  <div class="container">
+
+    <div class="hero">
+
+      <div class="hero-text">
+
+        <div class="page-label">CUBE COMMUNITY</div>
+
+        <h1>큐브 매니아</h1>
+
+        <p>
+          각종 큐브 정보와 대회 정보 등을 볼 수 있는 <br>
+          네이버 큐브 커뮤니티 카페입니다
+        </p>
+
+        <a href="https://cafe.naver.com/cubemania?tc=shared_link" target="_blank" class="start-btn">
+          큐브 매니아 바로가기 →
+        </a>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="hero-img">
+          <img src="logo/cubemania_ui.png" alt="cubemania_ui">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        주요 활동
+      </div>
+
+      <p class="section-desc">
+        큐브 매니아에서는 큐브 공식, 기록 인증, 질문과 답변, 대회 정보 등<br>
+        다양한 큐브 관련 정보를 다른 큐버들과 함께 나눌 수 있습니다
+      </p>
+
+      <div class="community-grid">
+
+        <div class="community-card">
+          <div class="community-icon">💬</div>
+          <h3>질문과 답변</h3>
+          <p>
+            큐브 공식, 큐브 추천, 기록 단축 방법 등<br>
+            궁금한 점을 질문할 수 있습니다
+          </p>
+        </div>
+
+        <div class="community-card">
+          <div class="community-icon">📚</div>
+          <h3>해법 공부</h3>
+          <p>
+            CFOP, Ortega, LBL 등<br>
+            다양한 해법과 공식을 배울 수 있습니다
+          </p>
+        </div>
+
+        <div class="community-card">
+          <div class="community-icon">⏱️</div>
+          <h3>기록 인증</h3>
+          <p>
+            자신의 기록을 올리고 다른 큐버들과<br>
+            기록 향상 과정을 공유할 수 있습니다
+          </p>
+        </div>
+
+        <div class="community-card">
+          <div class="community-icon">🏆</div>
+          <h3>대회 정보</h3>
+          <p>
+            WCA 대회나 큐브 관련 행사 정보를<br>
+            확인하고 공유할 수 있습니다
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        이런 사람에게 추천
+      </div>
+
+      <div class="recommend-grid">
+
+        <div class="recommend-card">
+          <span class="tag">입문자</span>
+          <h3>큐브를 막 시작한 사람</h3>
+          <p>
+            어떤 큐브를 사야 할지, 어떤 공식을 외워야 할지 모를 때<br>
+            다른 큐버들의 경험과 답변을 참고할 수 있습니다
+          </p>
+        </div>
+
+        <div class="recommend-card">
+          <span class="tag">연습 중</span>
+          <h3>기록을 줄이고 싶은 사람</h3>
+          <p>
+            자신의 기록을 공유하거나, 더 빠르게 맞추기 위한<br> 
+            공식과 연습 방법을 찾아볼 수 있습니다
+          </p>
+        </div>
+
+        <div class="recommend-card">
+          <span class="tag">대회 관심</span>
+          <h3>대회에 나가보고 싶은 사람</h3>
+          <p>
+            WCA 대회 정보, 참가 후기, 준비 방법 등을 확인하며<br>
+            실제 대회 참가를 준비할 수 있습니다
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        카페 이용 팁
+      </div>
+
+      <div class="tip-section">
+
+        <div class="tip-icon">💡</div>
+
+        <div class="tip-list">
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            질문하기 전 비슷한 질문이 있었는지 먼저 검색해보면 좋습니다
+          </div>
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            큐브나 윤활유는 사람마다 선호하는 느낌이 다르므로 구매 전 후기를 참고하는 것을 추천합니다
+          </div>
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            대회 정보나 참가 후기를 참고하면 실제 대회 준비에 도움이 됩니다
+          </div>
+
+          <div class="tip-item">
+            <div class="check">✓</div>
+            다른 큐버들과 기록과 연습 방법을 공유하며 동기부여를 얻을 수 있습니다
+          </div>
+
+        </div>
+
+        <div class="tip-img">
+          <img src="logo/cubemania.png" alt="cubemania">
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="next-box">
+
+      <div>
+        <div class="next-label">카페 둘러보기</div>
+
+        <h2>Cube Community</h2>
+
+        <p>
+          큐브 매니아 카페에서 다양한 정보와<br>
+          큐버들의 이야기를 확인해보세요
+        </p>
+      </div>
+
+      <div class="next-arrow">💬</div>
+
+      <a href="https://cafe.naver.com/cubemania?tc=shared_link" target="_blank" class="next-btn">
+        큐브 매니아 열기 →
+      </a>
+
+    </div>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", function(){
+      document.body.classList.toggle("dark");
+
+      if(document.body.classList.contains("dark")){
+        themeBtn.innerHTML = "☾";
+      }
+      else{
+        themeBtn.innerHTML = "⛭";
+      }
+    });
+  </script>
+
+</body>
+</html>

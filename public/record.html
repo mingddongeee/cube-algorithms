@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ao5 기록지</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+      padding:40px;
+      color:#111;
+    }
+
+    .record-wrap{
+      width:760px;
+      margin:0 auto;
+    }
+
+    .record-paper{
+      background:white;
+      border:3px solid #111;
+      padding:26px;
+    }
+
+    .top-info{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      border:2px solid #111;
+      margin-bottom:14px;
+    }
+
+    .top-cell{
+      padding:10px;
+      border-right:2px solid #111;
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .top-cell:last-child{
+      border-right:none;
+    }
+
+    .name-box{
+      border:2px solid #111;
+      padding:14px;
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .name-box h1{
+      font-size:36px;
+      margin-bottom:6px;
+    }
+
+    .name-box p{
+      font-size:20px;
+    }
+
+    .name-line{
+        margin-top:20px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:12px;
+
+        font-size:24px;
+        font-weight:bold;
+    }
+
+    .name-line input{
+        width:250px;
+
+        border:none;
+        outline:none;
+
+        background:transparent;
+
+        padding:4px 0;
+
+        font-size:22px;
+        text-align:center;
+
+        font-weight:bold;
+    }
+
+    .summary{
+      border:2px solid #111;
+      padding:12px;
+      margin-bottom:14px;
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:14px;
+    }
+
+    th, td{
+      border:2px solid #111;
+      padding:12px;
+      text-align:center;
+      font-size:18px;
+    }
+
+    th{
+      background:#f2f2f2;
+      font-weight:bold;
+    }
+
+    .num{
+      width:60px;
+      font-weight:bold;
+    }
+
+    .judge,
+    .comp{
+      width:110px;
+    }
+
+    .result-box{
+      border:2px solid #111;
+      padding:16px;
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .result-box h2{
+      font-size:22px;
+      margin-bottom:8px;
+    }
+
+    .result-box .ao5{
+      font-size:48px;
+      font-weight:bold;
+    }
+
+    .extra-table td{
+      height:46px;
+    }
+
+    .sign{
+      border-top:2px solid #111;
+      padding-top:12px;
+      text-align:right;
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .button-row{
+      margin-top:26px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+    }
+
+    button, a{
+      border:none;
+      text-decoration:none;
+      background:#ffd400;
+      color:black;
+      padding:16px 28px;
+      border-radius:14px;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .sub-btn{
+      background:white;
+      border:1px solid #ddd;
+    }
+
+    @media(max-width:850px){
+      .record-wrap{
+        width:100%;
+      }
+
+      body{
+        padding:20px;
+      }
+
+      .name-box h1{
+        font-size:28px;
+      }
+
+      th, td{
+        font-size:15px;
+        padding:8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="record-wrap">
+
+    <div class="record-paper" id="recordPaper">
+
+      <div class="top-info">
+        <div class="top-cell">
+          Live ID<br>
+          001
+        </div>
+
+        <div class="top-cell">
+          Cube Algorithms<br>
+          3x3x3 Cube, Ao5
+        </div>
+
+        <div class="top-cell">
+          Group<br>
+          Practice
+        </div>
+      </div>
+
+      <div class="name-box">
+
+        <h1>Ao5 기록지</h1>
+
+        <div class="name-line">
+            <label>Name :</label>
+            <input type="text" id="competitorName">
+        </div>
+
+     </div>
+
+      <div class="summary">
+        생성 시간 : <span id="createdAt">-</span><br>
+        기준 : 5개 기록 중 가장 빠른 기록과 가장 느린 기록을 제외한 평균
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th class="num">No.</th>
+            <th>Record</th>
+            <th class="judge">Judge</th>
+            <th class="comp">Comp</th>
+          </tr>
+        </thead>
+
+        <tbody id="recordTable">
+          <tr>
+            <td>1</td>
+            <td>-</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>-</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>-</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>-</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>-</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="result-box">
+        <h2>최종 Ao5 기록</h2>
+        <div class="ao5" id="ao5Result">--.--</div>
+      </div>
+
+      <table class="extra-table">
+        <tr>
+          <th>제외된 가장 빠른 기록</th>
+          <td id="fastestRecord">-</td>
+        </tr>
+
+        <tr>
+          <th>제외된 가장 느린 기록</th>
+          <td id="slowestRecord">-</td>
+        </tr>
+
+        <tr>
+          <th>평균 계산 기록</th>
+          <td id="middleRecords">-</td>
+        </tr>
+      </table>
+
+      <div class="sign">
+        서명은 본인의 이름을 정자로 또박또박 써 주세요!
+      </div>
+
+    </div>
+
+    <div class="button-row">
+      <a href="Ao5.html" class="sub-btn">새로 계산하기</a>
+      <button onclick="saveAsImage()">이미지 저장하기</button>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script>
+    fetch("/getRecord")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("ao5Result").innerHTML = data.ao5Result;
+        document.getElementById("fastestRecord").innerHTML = data.fastestRecord;
+        document.getElementById("slowestRecord").innerHTML = data.slowestRecord;
+        document.getElementById("middleRecords").innerHTML = data.middleRecords;
+        document.getElementById("createdAt").innerHTML = data.createdAt;
+
+        const records = data.allRecords.split(" / ");
+        const table = document.getElementById("recordTable");
+
+        table.innerHTML = "";
+
+        for(let i = 0; i < 5; i++){
+          table.innerHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${records[i] || "-"}</td>
+              <td></td>
+              <td></td>
+            </tr>
+          `;
+        }
+      });
+
+    function saveAsImage(){
+      const recordPaper = document.getElementById("recordPaper");
+
+      html2canvas(recordPaper, {
+        scale:2,
+        backgroundColor:"#ffffff"
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "ao5_record.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
+  </script>
+
+</body>
+</html>

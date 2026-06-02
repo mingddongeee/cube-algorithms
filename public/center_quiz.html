@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Center Color Quiz</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+      color:#111;
+      transition:0.3s;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    button{
+      border:none;
+      cursor:pointer;
+      font-family:sans-serif;
+    }
+
+    header{
+      width:100%;
+      height:85px;
+      background:#050505;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:0 50px;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo-icon{
+      font-size:22px;
+    }
+
+    .logo h1{
+      color:white;
+      font-size:22px;
+      white-space:nowrap;
+    }
+
+    .yellow-text{
+      color:#ffd400;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:65px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      padding:28px 0;
+      position:relative;
+      transition: 0.2s;
+    }
+
+    nav > a:hover,
+    .dropdown > a:hover{
+      color:#facc15;
+    }
+
+    nav > a.active,
+    .dropdown > a.active{
+      color:#facc15;
+    }
+
+    nav > a.active::after,
+    .dropdown > a.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:18px;
+      width:100%;
+      height:4px;
+      background:#facc15;
+      border-radius:999px;
+    }
+
+    .dropdown{
+      position:relative;
+    }
+
+    .dropdown > a{
+      display:block;
+    }
+
+    .dropdown-menu{
+      position:absolute;
+      top:78px;
+      left:50%;
+      transform:translateX(-50%) translateY(8px);
+
+      min-width:170px;
+      padding:10px;
+
+      background:#111;
+      border-radius:18px;
+      box-shadow:0 12px 28px rgba(0,0,0,0.3);
+
+      opacity:0;
+      visibility:hidden;
+      transition:0.2s;
+      z-index:999;
+    }
+
+    .dropdown:hover .dropdown-menu{
+      opacity:1;
+      visibility:visible;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .dropdown-menu a{
+      display:block;
+      padding:12px 16px;
+      color:white;
+      font-size:15px;
+      font-weight:700;
+      border-radius:12px;
+      white-space:nowrap;
+    }
+
+    .dropdown-menu a:hover{
+      background:#facc15;
+      color:#111;
+    }
+
+    .active::after{
+      content:"";
+      width:100%;
+      height:3px;
+      background:#ffd400;
+      position:absolute;
+      left:0;
+      bottom:-12px;
+      border-radius:999px;
+    }
+
+    .icon-btn{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:#ffd400;
+      color:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:22px;
+      transition:0.2s;
+      cursor:pointer;
+    }
+
+    .icon-btn:hover{
+      border:2px solid white;
+      transform:translateY(-2px);
+    }
+
+    .container{
+      width:95%;
+      margin:30px auto;
+      display:flex;
+      flex-direction:column;
+      gap:30px;
+    }
+
+    .hero{
+      background:#fff7df;
+      border:1px solid #f3df9c;
+      border-radius:30px;
+      padding:55px 70px;
+      min-height:330px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::after{
+      content:"";
+      width:180px;
+      height:180px;
+      border:5px solid #ffe58a;
+      border-radius:25px;
+      position:absolute;
+      right:-40px;
+      bottom:-35px;
+      opacity:0.35;
+    }
+
+    .page-label{
+      display:inline-block;
+      background:#ffd400;
+      color:black;
+      padding:8px 16px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:bold;
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+        font-size:72px;
+        margin-bottom:22px;
+    }
+
+    .hero p{
+      color:#333;
+      font-size:20px;
+      line-height:1.7;
+    }
+
+    .score-box{
+      background:white;
+      border:1px solid #f3df9c;
+      border-radius:22px;
+      padding:26px 34px;
+      text-align:center;
+      min-width:230px;
+      position:relative;
+      z-index:2;
+    }
+
+    .score-box h3{
+      font-size:20px;
+      margin-bottom:10px;
+    }
+
+    .score-box div{
+      font-size:44px;
+      font-weight:bold;
+      color:#111;
+    }
+
+    .section{
+        background:white;
+        border-radius:28px;
+        padding:32px;
+        box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .section-title{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        font-size:26px;
+        font-weight:bold;
+        margin-bottom:14px;
+    }
+
+    .title-bar{
+      width:6px;
+      height:30px;
+      background:#ffd400;
+      border-radius:999px;
+    }
+
+    .section-desc{
+      color:#555;
+      font-size:17px;
+      line-height:1.7;
+      margin-bottom:30px;
+    }
+
+    .quiz-box{
+      display:grid;
+      grid-template-columns:1.25fr 1fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .cube-net{
+      display:grid;
+      grid-template-columns:repeat(4, 120px);
+      grid-template-rows:repeat(3, 120px);
+      gap:12px;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+    }
+
+    .face{
+      width:120px;
+      height:120px;
+      border:4px solid #111;
+      border-radius:18px;
+      background:#eeeeee;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.2s;
+      position:relative;
+    }
+
+    .face:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.12);
+    }
+
+    .face.locked{
+      cursor:not-allowed;
+      border:5px solid #111;
+      box-shadow:0 0 0 5px rgba(255,212,0,0.55);
+    }
+
+    .face span{
+      background:rgba(255,255,255,0.78);
+      color:#111;
+      padding:6px 11px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .U{ grid-column:2; grid-row:1; }
+    .L{ grid-column:1; grid-row:2; }
+    .F{ grid-column:2; grid-row:2; }
+    .R{ grid-column:3; grid-row:2; }
+    .B{ grid-column:4; grid-row:2; }
+    .D{ grid-column:2; grid-row:3; }
+
+    .game-panel{
+      background:#fff7df;
+      border:1px solid #f3df9c;
+      border-radius:26px;
+      padding:30px;
+    }
+
+    .question{
+      font-size:24px;
+      font-weight:bold;
+      line-height:1.6;
+      margin-bottom:24px;
+    }
+
+    .color-palette{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      margin-bottom:26px;
+    }
+
+    .color-btn{
+      height:64px;
+      border-radius:16px;
+      border:3px solid #111;
+      cursor:pointer;
+      font-weight:bold;
+      font-size:15px;
+      transition:0.2s;
+    }
+
+    .color-btn:hover{
+      transform:translateY(-3px);
+    }
+
+    .white{ background:white; color:#111; }
+    .yellow{ background:#ffe600; color:#111; }
+    .green{ background:#00d900; color:#111; }
+    .blue{ background:#173bff; color:white; }
+    .red{ background:#ff1a1a; color:white; }
+    .orange{ background:#ff8a00; color:#111; }
+
+    .selected-info{
+      font-size:17px;
+      line-height:1.6;
+      color:#333;
+      margin-bottom:22px;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .main-btn,
+    .sub-btn{
+        padding:16px 28px;
+        border-radius:16px;
+        font-size:18px;
+        font-weight:bold;
+        transition:0.2s;
+    }
+
+    .main-btn{
+      background:#ffd400;
+      color:black;
+    }
+
+    .sub-btn{
+      background:white;
+      color:#333;
+      border:1px solid #e5e7eb;
+    }
+
+    .main-btn:hover,
+    .sub-btn:hover{
+      transform:translateY(-3px);
+    }
+
+    .result{
+      margin-top:24px;
+      background:white;
+      border:1px solid #e5e7eb;
+      border-radius:20px;
+      padding:22px;
+      font-size:18px;
+      line-height:1.7;
+      color:#333;
+    }
+
+    .result strong{
+      font-size:24px;
+      color:#111;
+    }
+
+    .guide-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:20px;
+    }
+
+    .guide-card{
+      background:white;
+      border:1px solid #e5e7eb;
+      border-radius:22px;
+      padding:24px;
+      min-height:160px;
+      transition:0.2s;
+    }
+
+    .guide-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+
+    .guide-card h3{
+      font-size:21px;
+      margin-bottom:10px;
+    }
+
+    .guide-card h3::before{
+      content:"●";
+      color:#ffd400;
+      margin-right:8px;
+    }
+
+    .guide-card p{
+      color:#555;
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    body.dark{
+      background:#111827;
+      color:white;
+    }
+
+    body.dark .hero,
+    body.dark .section{
+      background:#1f2937;
+      border-color:#374151;
+      box-shadow:none;
+    }
+
+    body.dark .hero p,
+    body.dark .section-desc,
+    body.dark .selected-info,
+    body.dark .guide-card p{
+      color:#cbd5e1;
+    }
+
+    body.dark .score-box,
+    body.dark .game-panel,
+    body.dark .result,
+    body.dark .guide-card{
+      background:#111827;
+      border-color:#374151;
+      color:white;
+    }
+
+    body.dark .score-box div,
+    body.dark .result strong{
+      color:#ffd400;
+    }
+
+    body.dark .sub-btn{
+      background:#1f2937;
+      color:white;
+      border-color:#374151;
+    }
+
+    body.dark .face{
+      border-color:#cbd5e1;
+    }
+
+    body.dark .hero::after{
+      border-color:#374151;
+    }
+
+    @media(max-width:1200px){
+      nav{
+        gap:20px;
+      }
+
+      .quiz-box{
+        grid-template-columns:1fr;
+      }
+
+      .cube-net{
+        grid-template-columns:repeat(4, 95px);
+        grid-template-rows:repeat(3, 95px);
+      }
+
+      .face{
+        width:95px;
+        height:95px;
+      }
+
+      .guide-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:750px){
+      header{
+        padding:0 20px;
+      }
+
+      nav{
+        display:none;
+      }
+
+      .hero{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:36px 28px;
+      }
+
+      .hero h1{
+        font-size:42px;
+      }
+
+      .cube-net{
+        grid-template-columns:repeat(4, 70px);
+        grid-template-rows:repeat(3, 70px);
+        gap:8px;
+        padding:0;
+      }
+
+      .face{
+        width:70px;
+        height:70px;
+        border-radius:12px;
+      }
+
+      .face span{
+        font-size:11px;
+        padding:4px 7px;
+      }
+
+      .color-palette{
+        grid-template-columns:repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      <div class="logo-icon">🧊</div>
+      <h1>Cube <span class="yellow-text">Algorithms</span></h1>
+    </div>
+
+    <nav>
+      <a href="home.html">홈</a>
+
+      <div class="dropdown">
+        <a href="1-0.cfop.html" class="active">CFOP</a>
+        <div class="dropdown-menu">
+          <a href="1-2.cfop_cross.html">Cross</a>
+          <a href="1-3.cfop_f2l.html">F2L</a>
+          <a href="1-4.cfop_oll.html">OLL</a>
+          <a href="1-5.cfop_pll.html">PLL</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Links</a>
+        <div class="dropdown-menu">
+          <a href="wca.html">WCA</a>
+          <a href="cubemania.html">큐브매니아</a>
+          <a href="cstimer.html">csTimer</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a href="#">Utilities</a>
+        <div class="dropdown-menu">
+          <a href="Ao5.html">Ao5 Calculator</a>
+          <a href="competition-recap.html">Competition Recap</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="icon-btn" id="themeBtn">⛭</div>
+
+  </header>
+
+  <div class="container">
+
+    <div class="hero">
+
+      <div>
+        <div class="page-label">CENTER COLOR QUIZ</div>
+
+        <h1>센터 배치 테스트</h1>
+
+        <p>
+          실제 큐브의 센터 색 배치를 맞춰보며<br>
+          센터 색의 위치를 익혀보세요
+        </p>
+      </div>
+
+      <div class="score-box">
+        <h3>현재 점수</h3>
+        <div id="scoreText">0 / 6</div>
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">
+        <div class="title-bar"></div>
+        큐브 센터 색 맞추기
+      </div>
+
+      <p class="section-desc">
+        전개도에서 색을 넣을 면을 클릭한 뒤, 오른쪽 색상 버튼을 눌러 색을 배치하세요<br>
+        고정된 면은 문제에서 주어진 색이므로 변경할 수 없습니다
+      </p>
+
+      <div class="quiz-box">
+
+        <div class="cube-net">
+
+          <div class="face U" data-face="U">
+            <span>U</span>
+          </div>
+
+          <div class="face L" data-face="L">
+            <span>L</span>
+          </div>
+
+          <div class="face F" data-face="F">
+            <span>F</span>
+          </div>
+
+          <div class="face R" data-face="R">
+            <span>R</span>
+          </div>
+
+          <div class="face B" data-face="B">
+            <span>B</span>
+          </div>
+
+          <div class="face D" data-face="D">
+            <span>D</span>
+          </div>
+
+        </div>
+
+        <div class="game-panel">
+
+          <div class="question" id="questionText">
+            문제 생성 중...
+          </div>
+
+          <div class="color-palette">
+
+            <button class="color-btn white" onclick="paintFace('white')">흰색</button>
+            <button class="color-btn yellow" onclick="paintFace('yellow')">노란색</button>
+            <button class="color-btn green" onclick="paintFace('green')">초록색</button>
+            <button class="color-btn blue" onclick="paintFace('blue')">파란색</button>
+            <button class="color-btn red" onclick="paintFace('red')">빨간색</button>
+            <button class="color-btn orange" onclick="paintFace('orange')">주황색</button>
+
+          </div>
+
+          <div class="selected-info" id="selectedInfo">
+            선택된 면: 없음
+          </div>
+
+          <div class="btn-row">
+            <button class="main-btn" onclick="checkAnswer()">정답 확인</button>
+            <button class="sub-btn" onclick="newQuestion()">새 문제</button>
+            <button class="sub-btn" onclick="resetUserColors()">색 초기화</button>
+          </div>
+
+          <div class="result" id="resultBox">
+            색을 배치한 뒤 정답 확인 버튼을 눌러주세요
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+    <script>
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", function(){
+        document.body.classList.toggle("dark");
+
+        if(document.body.classList.contains("dark")){
+        themeBtn.innerHTML = "☾";
+        }
+        else{
+        themeBtn.innerHTML = "⛭";
+        }
+    });
+
+    const baseAnswer = {
+        U:"white",
+        D:"yellow",
+        F:"red",
+        B:"orange",
+        L:"green",
+        R:"blue"
+    };
+
+    const colorName = {
+        white:"흰색",
+        yellow:"노란색",
+        green:"초록색",
+        blue:"파란색",
+        red:"빨간색",
+        orange:"주황색"
+    };
+
+    const colorCode = {
+        white:"#ffffff",
+        yellow:"#ffe600",
+        green:"#00d900",
+        blue:"#173bff",
+        red:"#ff1a1a",
+        orange:"#ff8a00",
+        blank:"#eeeeee"
+    };
+
+    let selectedFace = null;
+    let lockedFace = null;
+    let lockedColor = null;
+
+    let userAnswer = {
+        U:"",
+        D:"",
+        F:"",
+        B:"",
+        R:"",
+        L:""
+    };
+
+    const faces = document.querySelectorAll(".face");
+
+    faces.forEach(face => {
+        face.addEventListener("click", function(){
+        const faceName = this.dataset.face;
+
+        if(faceName === lockedFace){
+            document.getElementById("selectedInfo").innerHTML =
+            "선택된 면: " + faceName + "면은 문제에서 고정된 면입니다";
+            return;
+        }
+
+        selectedFace = faceName;
+
+        faces.forEach(f => f.style.outline = "none");
+        this.style.outline = "5px solid #ffd400";
+
+        document.getElementById("selectedInfo").innerHTML =
+            "선택된 면: " + faceName;
+        });
+    });
+
+    function rotateX(cube){
+        return {
+        U:cube.B,
+        F:cube.U,
+        D:cube.F,
+        B:cube.D,
+        L:cube.L,
+        R:cube.R
+        };
+    }
+
+    function rotateY(cube){
+        return {
+        U:cube.U,
+        D:cube.D,
+        F:cube.L,
+        R:cube.F,
+        B:cube.R,
+        L:cube.B
+        };
+    }
+
+    function rotateZ(cube){
+        return {
+        U:cube.L,
+        R:cube.U,
+        D:cube.R,
+        L:cube.D,
+        F:cube.F,
+        B:cube.B
+        };
+    }
+
+    function cubeKey(cube){
+        return cube.U + "|" + cube.D + "|" + cube.F + "|" + cube.B + "|" + cube.L + "|" + cube.R;
+    }
+
+    function getAllValidCubes(){
+        let result = [];
+        let queue = [baseAnswer];
+        let visited = new Set();
+
+        while(queue.length > 0){
+        let current = queue.shift();
+        let key = cubeKey(current);
+
+        if(visited.has(key)){
+            continue;
+        }
+
+        visited.add(key);
+        result.push(current);
+
+        queue.push(rotateX(current));
+        queue.push(rotateY(current));
+        queue.push(rotateZ(current));
+        }
+
+        return result;
+    }
+
+    const validCubes = getAllValidCubes();
+
+    function newQuestion(){
+        const randomCube = validCubes[Math.floor(Math.random() * validCubes.length)];
+        const faceList = ["U","D","F","B","R","L"];
+
+        lockedFace = faceList[Math.floor(Math.random() * faceList.length)];
+        lockedColor = randomCube[lockedFace];
+
+        userAnswer = {
+        U:"",
+        D:"",
+        F:"",
+        B:"",
+        R:"",
+        L:""
+        };
+
+        selectedFace = null;
+
+        faces.forEach(face => {
+        const faceName = face.dataset.face;
+
+        face.classList.remove("locked");
+        face.style.outline = "none";
+
+        if(faceName === lockedFace){
+            userAnswer[faceName] = lockedColor;
+            face.style.background = colorCode[lockedColor];
+            face.classList.add("locked");
+        }
+        else{
+            face.style.background = colorCode.blank;
+        }
+        });
+
+        document.getElementById("questionText").innerHTML =
+        lockedFace + "면 센터가 <b>" + colorName[lockedColor] + "</b>일 때,<br>나머지 센터 색을 배치하세요";
+
+        document.getElementById("selectedInfo").innerHTML = "선택된 면: 없음";
+        document.getElementById("resultBox").innerHTML = "색을 배치한 뒤 정답 확인 버튼을 눌러주세요";
+        document.getElementById("scoreText").innerHTML = "0 / 6";
+    }
+
+    function paintFace(color){
+        if(selectedFace === null){
+        alert("먼저 전개도에서 색을 넣을 면을 선택하세요");
+        return;
+        }
+
+        if(selectedFace === lockedFace){
+        alert("문제에서 주어진 면은 변경할 수 없습니다");
+        return;
+        }
+
+        userAnswer[selectedFace] = color;
+
+        const face = document.querySelector('[data-face="' + selectedFace + '"]');
+        face.style.background = colorCode[color];
+    }
+
+    function resetUserColors(){
+        faces.forEach(face => {
+        const faceName = face.dataset.face;
+
+        if(faceName !== lockedFace){
+            userAnswer[faceName] = "";
+            face.style.background = colorCode.blank;
+            face.style.outline = "none";
+        }
+        });
+
+        selectedFace = null;
+
+        document.getElementById("selectedInfo").innerHTML = "선택된 면: 없음";
+        document.getElementById("scoreText").innerHTML = "0 / 6";
+        document.getElementById("resultBox").innerHTML = "색을 배치한 뒤 정답 확인 버튼을 눌러주세요";
+    }
+
+    function checkAnswer(){
+        const facesToCheck = ["U","D","F","B","R","L"];
+
+        for(let face of facesToCheck){
+        if(userAnswer[face] === ""){
+            document.getElementById("scoreText").innerHTML = "미완성";
+            document.getElementById("resultBox").innerHTML =
+            "<strong>아직 색이 부족합니다 🧩</strong><br>모든 면에 센터 색을 배치해주세요";
+            return;
+        }
+        }
+
+        const usedColors = Object.values(userAnswer);
+        const uniqueColors = new Set(usedColors);
+
+        if(uniqueColors.size !== 6){
+        document.getElementById("scoreText").innerHTML = "오답";
+        document.getElementById("resultBox").innerHTML =
+            "<strong>색이 중복되었습니다 😢</strong><br>6개의 센터 색은 각각 한 번씩만 사용해야 합니다";
+        return;
+        }
+
+        let bestCube = null;
+        let bestScore = -1;
+        let bestWrongFaces = [];
+
+        validCubes.forEach(cube => {
+        let score = 0;
+        let wrongFaces = [];
+
+        facesToCheck.forEach(face => {
+            if(userAnswer[face] === cube[face]){
+            score++;
+            }
+            else{
+            wrongFaces.push(face);
+            }
+        });
+
+        if(score > bestScore){
+            bestScore = score;
+            bestCube = cube;
+            bestWrongFaces = wrongFaces;
+        }
+        });
+
+        document.getElementById("scoreText").innerHTML = bestScore + " / 6";
+
+        if(bestScore === 6){
+        document.getElementById("resultBox").innerHTML =
+            "<strong>정답입니다! 🎉</strong><br>실제 큐브 센터 색 배치와 일치합니다!!";
+        }
+        else{
+        let wrongText = bestWrongFaces.map(face => {
+            return face + "면";
+        }).join(", ");
+
+        let correctText = bestWrongFaces.map(face => {
+            return face + "면: " + colorName[bestCube[face]];
+        }).join("<br>");
+
+        document.getElementById("resultBox").innerHTML =
+            "<strong>아쉽습니다 ㅠㅠ 😢</strong><br>" +
+            "현재 점수: <b>" + bestScore + " / 6</b><br>" +
+            "틀린 면: <b>" + wrongText + "</b><br><br>" +
+            "정답 색상은 다음과 같습니다<br>" +
+            correctText;
+        }
+    }
+
+    newQuestion();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>home</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      font-family: sans-serif;
+    }
+
+    /* 상단바 */
+    header {
+      width: 100%;
+      height: 70px;
+      background-color: #111827;
+      color: white;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 0 40px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    /* 전체 영역 */
+    .container {
+      width: 90%;
+      margin: 30px auto;
+
+      display: flex;
+      gap: 20px;
+    }
+
+    /* 왼쪽 메뉴 */
+    .sidebar {
+      width: 250px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .menu-box {
+      background-color: white;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .menu-box h2 {
+      margin-bottom: 15px;
+    }
+
+    .method {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-bottom: 10px;
+
+      cursor: pointer;
+    }
+
+    /* 메인 */
+    .main {
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* 상단 소개 */
+    .hero {
+      background-color: #111827;
+      color: white;
+
+      border-radius: 20px;
+
+      padding: 40px;
+
+      height: 250px;
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+    }
+
+    /* 단계 카드 */
+    .steps {
+      display: flex;
+      gap: 20px;
+    }
+
+    .step-card {
+      flex: 1;
+
+      background-color: white;
+      border-radius: 15px;
+
+      padding: 20px;
+
+      height: 200px;
+    }
+
+    .step-card h3 {
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">🧊 Cube Algorithms</div>
+
+    <nav>
+      <a href="#">홈</a>  
+      <a href="#">CFOP</a>
+      <a href="#">Ortega</a>
+      <a href="#">Vandenbargh</a>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <!-- 왼쪽 -->
+    <div class="sidebar">
+
+      <div class="menu-box">
+        <h2>방법 선택</h2>
+
+        <div class="method">CFOP</div>
+        <div class="method">Vandenbargh</div>
+        <div class="method">Ortega</div>
+      </div>
+
+      <div class="menu-box">
+        <h2>카테고리</h2>
+
+        <p>• CS</p>
+        <p>• CO</p>
+        <p>• EO</p>
+        <p>• CP</p>
+        <p>• EP</p>
+      </div>
+
+    </div>
+
+    <!-- 메인 -->
+    <div class="main">
+
+      <div class="hero">
+        <h1>Vandenbargh</h1>
+        <p>
+          Square-1 큐브 해법
+        </p>
+      </div>
+
+      <!-- 단계 -->
+      <div class="steps">
+
+        <div class="step-card">
+          <h3>1. CS</h3>
+          <p>Square 모양 만들기</p>
+        </div>
+
+        <div class="step-card">
+          <h3>2. CO</h3>
+          <p>코너 오리엔테이션</p>
+        </div>
+
+        <div class="step-card">
+          <h3>3. EO</h3>
+          <p>엣지 오리엔테이션</p>
+        </div>
+
+        <div class="step-card">
+          <h3>4. CP</h3>
+          <p>코너 퍼뮤니케이션</p>
+        </div>
+
+        <div class="step-card">
+          <h3>5. EP</h3>
+          <p>엣지 퍼뮤니케이션</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

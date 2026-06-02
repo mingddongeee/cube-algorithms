@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ortega 준비 중</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+
+      min-height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      text-align:center;
+
+      padding:30px;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .error-container{
+      width:100%;
+      max-width:1000px;
+    }
+
+    .error-code{
+      font-size:300px;
+      font-weight:900;
+      line-height:1;
+
+      color:#ef4444;
+
+      margin-bottom:20px;
+
+      text-shadow:0 6px 18px rgba(239,68,68,0.18);
+    }
+
+    .error-img{
+      width:800px;
+      height:600px;
+
+      margin:0 auto 30px;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      color:#999;
+      font-size:22px;
+      font-weight:bold;
+    }
+
+    .error-img img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    .error-title{
+      font-size:48px;
+      font-weight:bold;
+
+      margin-bottom:20px;
+    }
+
+    .error-desc{
+      font-size:24px;
+      color:#555;
+      line-height:1.9;
+
+      margin-bottom:40px;
+    }
+
+    .home-btn{
+      display:inline-block;
+
+      background:#ffd400;
+      color:black;
+
+      padding:20px 40px;
+
+      border-radius:18px;
+
+      font-size:24px;
+      font-weight:bold;
+
+      transition:0.2s;
+    }
+
+    .home-btn:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 18px rgba(255,212,0,0.25);
+    }
+
+    @media(max-width:768px){
+      .error-code{
+        font-size:170px;
+      }
+
+      .error-title{
+        font-size:34px;
+      }
+
+      .error-desc{
+        font-size:18px;
+      }
+
+      .error-img{
+        width:240px;
+        height:180px;
+      }
+
+      .home-btn{
+        font-size:20px;
+        padding:16px 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="error-container">
+
+    <div class="error-code">
+      404
+    </div>
+
+    <div class="error-img">
+      <img src="logo/ortega_error.png" alt="ortega_error">
+    </div>
+
+    <div class="error-title">
+      🚧 Ortega 페이지 준비 중 🚧
+    </div>
+
+    <div class="error-desc">
+      현재 Ortega 해법 페이지를 제작하고 있습니다<br>
+
+      🧊 2x2 큐브 해법 &nbsp; 📖 대표 공식 정리 &nbsp; 🎯 학습 가이드<br>
+
+      등 추후 추가할 예정입니다!! <br>
+
+      조금만 기다려 주세요 🙂
+    </div>
+
+    <a href="home.html" class="home-btn">
+      🏠 홈으로 돌아가기 →
+    </a>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ortega</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#f5f5f5;
+      font-family:sans-serif;
+    }
+
+    /* 상단바 */
+    header{
+      width:100%;
+      height:70px;
+      background:#111827;
+      color:white;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:0 40px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:bold;
+    }
+
+    nav{
+      display:flex;
+      gap:30px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-size:18px;
+    }
+
+    /* 메인 */
+    .container{
+      width:90%;
+      margin:30px auto;
+
+      display:flex;
+      flex-direction:column;
+      gap:25px;
+    }
+
+    /* 소개 */
+    .hero{
+      width:100%;
+      background:#111827;
+      color:white;
+
+      border-radius:20px;
+
+      padding:50px;
+    }
+
+    .hero h1{
+      font-size:70px;
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      font-size:20px;
+      color:#d1d5db;
+    }
+
+    /* 단계 */
+    .section-title{
+      font-size:32px;
+      margin-bottom:10px;
+    }
+
+    .steps{
+      display:flex;
+      gap:20px;
+    }
+
+    .step-card{
+      flex:1;
+
+      background:white;
+      border-radius:15px;
+
+      padding:25px;
+
+      min-height:180px;
+
+      box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .step-card h2{
+      margin-bottom:15px;
+    }
+
+    .step-card p{
+      color:#666;
+      margin-bottom:20px;
+    }
+
+    .step-btn{
+      padding:10px 20px;
+      border:none;
+      border-radius:10px;
+
+      background:#4f46e5;
+      color:white;
+
+      cursor:pointer;
+    }
+
+    .notation-section{
+        background:white;
+
+        border-radius:15px;
+
+        padding:20px;
+
+        box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .notation-btn{
+        padding:12px 20px;
+
+        border:none;
+        border-radius:10px;
+
+        background:#4f46e5;
+        color:white;
+
+        font-size:16px;
+
+        cursor:pointer;
+    }
+
+    .notation-desc{
+        color:#666;
+        margin-top: 15px;
+    }
+
+</style>
+</head>
+
+<body>
+
+  <!-- 상단 -->
+  <header>
+
+    <div class="logo">
+      🧊 Cube Algorithms
+    </div>
+
+    <nav>
+      <a href="#">홈</a>  
+      <a href="#">WCA</a>
+      <a href="#">큐브 매니아</a>
+      <a href="#">CFOP</a>
+      <a href="#">Ortega</a>
+    </nav>
+
+  </header>
+
+  <!-- 전체 -->
+  <div class="container">
+
+    <!-- 소개 -->
+    <div class="hero">
+
+      <h1>Ortega</h1>
+
+      <p>
+        2x2 큐브 해법
+      </p>
+
+    </div>
+
+    <div class = "notation-section">
+        <button class = "notation-btn"> 
+            큐브 기호 보기
+        </button>
+        <p class="notation-desc">
+            큐브 공식에 사용되는 기본 기호 설명입니다.
+        </p>
+    </div>
+
+    <!-- 단계 -->
+    <div>
+
+      <h1 class="section-title">
+        단계별 가이드
+      </h1>
+
+      <div class="steps">
+
+        <div class="step-card">
+
+          <h2>1. First Layer</h2>
+
+          <p>
+            한 면 완성
+          </p>
+
+          <button class="step-btn">
+            공식 보기
+          </button>
+
+        </div>
+
+        <div class="step-card">
+
+          <h2>2. OLL</h2>
+
+          <p>
+            윗면 맞추기
+          </p>
+
+          <button class="step-btn">
+            공식 보기
+          </button>
+
+        </div>
+
+        <div class="step-card">
+
+          <h2>3. PLL</h2>
+
+          <p>
+            마지막 정렬
+          </p>
+
+          <button class="step-btn">
+            공식 보기
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
