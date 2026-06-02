@@ -874,16 +874,16 @@
       @media(max-width:750px){
 
         header{
-          height:72px;
-          padding:0 18px !important;
+          height:85px;
+          padding:0 20px !important;
         }
 
         .logo h1{
-          font-size:18px;
+          font-size:22px;
         }
 
         .logo-icon{
-          font-size:20px;
+          font-size:22px;
         }
 
         nav{
@@ -891,9 +891,9 @@
         }
 
         .icon-btn{
-          width:42px;
-          height:42px;
-          font-size:19px;
+          width:50px;
+          height:50px;
+          font-size:22px;
         }
 
         .container{
@@ -1084,10 +1084,10 @@
         display:none;
         background:#ffd400;
         color:#111;
-        width:42px;
-        height:42px;
-        border-radius:12px;
-        font-size:24px;
+        width:50px;
+        height:50px;
+        border-radius:50%;
+        font-size:26px;
         font-weight:bold;
         align-items:center;
         justify-content:center;
@@ -1101,16 +1101,22 @@
         .menu-btn{
           display:flex !important;
           flex-shrink:0;
+          order:-1;
+        }
+
+        .logo{
+          order:0;
         }
 
         .header-icons{
+          order:1;
           gap:10px;
         }
 
         nav{
           display:none !important;
           position:absolute;
-          top:72px;
+          top:85px;
           left:0;
           width:100%;
           background:#050505;
@@ -1167,6 +1173,23 @@
         }
       }
 
+
+
+      @media(max-width:420px){
+        .logo h1{
+          font-size:18px;
+        }
+
+        .logo-icon{
+          font-size:20px;
+        }
+
+        .menu-btn,
+        .icon-btn{
+          width:44px;
+          height:44px;
+        }
+      }
 
   </style>
 
