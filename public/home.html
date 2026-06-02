@@ -874,78 +874,115 @@
       @media(max-width:750px){
 
         header{
-          padding:0 20px;
+          height:72px;
+          padding:0 18px !important;
+        }
+
+        .logo h1{
+          font-size:18px;
+        }
+
+        .logo-icon{
+          font-size:20px;
         }
 
         nav{
-          display:none;
+          display:none !important;
+        }
+
+        .icon-btn{
+          width:42px;
+          height:42px;
+          font-size:19px;
         }
 
         .container{
           width:92%;
-          margin:20px auto;
+          margin:18px auto;
+          gap:22px;
         }
 
         .hero{
-          flex-direction:column;
-          align-items:flex-start;
-          padding:35px 25px;
-          min-height:auto;
+          flex-direction:column !important;
+          align-items:flex-start !important;
+          justify-content:flex-start !important;
+          padding:32px 22px !important;
+          min-height:auto !important;
+          border-radius:24px;
         }
 
         .hero-text{
-          width:100%;
-          min-width:0;
+          width:100% !important;
+          min-width:0 !important;
         }
 
         .hero-text h1{
-          font-size:42px;
-          white-space:normal;
+          font-size:38px !important;
+          line-height:1.25;
+          white-space:normal !important;
+          margin-bottom:20px;
         }
 
         .hero-text p{
-          font-size:16px;
+          font-size:15px !important;
+          line-height:1.7;
+          margin-bottom:24px;
         }
 
         .hero-buttons{
-          flex-direction:column;
+          flex-direction:column !important;
+          width:100%;
+          gap:12px;
+        }
+
+        .hero-buttons a{
           width:100%;
         }
 
         .main-btn,
         .sub-btn{
-          width:100%;
+          width:100% !important;
           justify-content:center;
-          font-size:16px;
+          font-size:16px !important;
+          padding:15px 20px;
         }
 
         .hero-visual{
-          width:100%;
-          height:260px;
-          margin-top:25px;
+          width:100% !important;
+          height:230px !important;
+          margin-top:24px;
         }
 
         .glow-ring{
-          width:260px;
-          height:260px;
+          width:230px !important;
+          height:230px !important;
           border-width:8px;
+          box-shadow:
+            0 0 35px rgba(255,212,0,0.75),
+            0 0 90px rgba(255,212,0,0.18);
         }
 
         .hero-image img{
-          width:220px;
+          width:200px !important;
+        }
+
+        .section-title{
+          font-size:22px;
         }
 
         .method-grid{
-          grid-template-columns:1fr;
+          grid-template-columns:1fr !important;
         }
 
         .method-card{
           padding:22px;
+          min-height:auto;
         }
 
         .method-left{
-          flex-direction:column;
-          align-items:flex-start;
+          flex-direction:column !important;
+          align-items:flex-start !important;
+          width:100%;
         }
 
         .cube-image{
@@ -957,31 +994,69 @@
           font-size:34px;
         }
 
+        .method-text p{
+          font-size:15px;
+        }
+
+        .method-btn{
+          width:100%;
+        }
+
         .quick-grid{
-          grid-template-columns:1fr;
+          grid-template-columns:1fr !important;
         }
 
         .quick-card{
-          flex-direction:column;
+          flex-direction:row;
           gap:15px;
-          align-items:flex-start;
+          align-items:center;
+          padding:20px;
+        }
+
+        .quick-left{
+          min-width:0;
+        }
+
+        .quick-logo{
+          width:56px;
+          height:56px;
+        }
+
+        .quick-text h3{
+          font-size:20px;
+        }
+
+        .quick-text p{
+          font-size:13px;
         }
 
         .guide-box{
+          flex-direction:column !important;
+          align-items:flex-start !important;
           padding:24px;
+          gap:22px;
         }
 
         .guide-title{
-          width:100%;
-          border-right:none;
+          width:100% !important;
+          border-right:none !important;
           border-bottom:2px solid #e7dcc0;
-          padding-right:0;
-          padding-bottom:20px;
+          padding-right:0 !important;
+          padding-bottom:18px;
+        }
+
+        .guide-title h2{
+          font-size:22px;
+          white-space:normal !important;
+        }
+
+        .guide-title p{
+          font-size:15px;
         }
 
         .guide-steps{
-          flex-direction:column;
-          align-items:flex-start;
+          flex-direction:column !important;
+          align-items:flex-start !important;
           width:100%;
           gap:18px;
         }
@@ -991,7 +1066,7 @@
         }
 
         .arrow{
-          display:none;
+          display:none !important;
         }
 
         .guide-icon{
@@ -1000,6 +1075,7 @@
           font-size:24px;
         }
       }
+
 
   </style>
 
@@ -1024,7 +1100,7 @@
 
       <div class="dropdown">
         <a href="1-0.cfop.html">CFOP</a>
-        <div class="dropdown-menu">>
+        <div class="dropdown-menu">
           <a href="1-2.cfop_cross.html">Cross</a>
           <a href="1-3.cfop_f2l.html">F2L</a>
           <a href="1-4.cfop_oll.html">OLL</a>
