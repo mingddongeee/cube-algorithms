@@ -971,6 +971,135 @@
       border-color:#4b5563;
     }
 
+    @media(max-width:1200px){
+
+      nav{
+        gap:25px;
+      }
+
+      .basic-grid{
+        grid-template-columns:1fr;
+      }
+
+      .step-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      .formula-grid{
+        grid-template-columns:repeat(2, 1fr);
+      }
+
+      .tip-section{
+        flex-direction:column;
+      }
+
+      .goal-note{
+        flex-direction:column;
+      }
+    }
+
+    @media(max-width:750px){
+
+      header{
+        padding:0 20px;
+      }
+
+      nav{
+        display:none;
+      }
+
+      .container{
+        width:92%;
+        margin:20px auto;
+      }
+
+      .hero{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:36px 28px;
+        min-height:auto;
+      }
+
+      .hero-text h1{
+        font-size:48px;
+      }
+
+      .hero-text p{
+        font-size:16px;
+      }
+
+      .hero-visual{
+        width:100%;
+        height:auto;
+        margin-top:20px;
+      }
+
+      .hero-img img{
+        width:220px;
+      }
+
+      .section{
+        padding:22px;
+      }
+
+      .basic-grid{
+        grid-template-columns:1fr;
+      }
+
+      .step-grid{
+        grid-template-columns:1fr;
+      }
+
+      .formula-grid{
+        grid-template-columns:1fr;
+      }
+
+      .goal-note{
+        flex-direction:column;
+        gap:20px;
+      }
+
+      .pair-flow{
+        justify-content:center;
+        flex-wrap:wrap;
+      }
+
+      .tip-section{
+        flex-direction:column;
+        gap:24px;
+      }
+
+      .tip-img{
+        width:160px;
+        height:120px;
+      }
+
+      .section-header{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      .video-link{
+        width:100%;
+        text-align:center;
+      }
+
+      .next-box{
+        flex-direction:column;
+        text-align:center;
+        gap:20px;
+        padding:28px;
+      }
+
+      .next-box h2{
+        font-size:36px;
+      }
+
+      .next-arrow{
+        display:none;
+      }
+    }
+
   </style>
 </head>
 

@@ -182,23 +182,108 @@
     }
 
     @media(max-width:850px){
-      .record-wrap{
-        width:100%;
-      }
 
       body{
         padding:20px;
+      }
+
+      .record-wrap{
+        width:100%;
       }
 
       .name-box h1{
         font-size:28px;
       }
 
-      th, td{
+      .name-line{
+        flex-direction:column;
+        gap:8px;
+        font-size:20px;
+      }
+
+      .name-line input{
+        width:100%;
+        max-width:250px;
+      }
+
+      th,
+      td{
         font-size:15px;
         padding:8px;
       }
+
+      .ao5{
+        font-size:38px !important;
+      }
     }
+
+    @media(max-width:650px){
+
+      body{
+        padding:12px;
+      }
+
+      .record-paper{
+        padding:16px;
+      }
+
+      .top-info{
+        grid-template-columns:1fr;
+      }
+
+      .top-cell{
+        border-right:none;
+        border-bottom:2px solid #111;
+      }
+
+      .top-cell:last-child{
+        border-bottom:none;
+      }
+
+      .name-box h1{
+        font-size:24px;
+      }
+
+      .summary{
+        font-size:14px;
+      }
+
+      table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+      }
+
+      th,
+      td{
+        font-size:13px;
+        padding:6px;
+      }
+
+      .result-box h2{
+        font-size:18px;
+      }
+
+      .result-box .ao5{
+        font-size:30px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row a,
+      .button-row button{
+        width:100%;
+        text-align:center;
+        font-size:16px;
+      }
+
+      .sign{
+        font-size:13px;
+      }
+    }
+
   </style>
 </head>
 

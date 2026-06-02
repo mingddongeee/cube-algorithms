@@ -502,48 +502,106 @@ body.dark .hero::after {
   border-color: #374151;
 }
 
-@media(max-width:1000px) {
-  nav {
-    gap: 20px;
-    margin-left: 0
+@media(max-width:1000px){
+
+  nav{
+    gap:20px;
+    margin-left:0;
   }
 
-  .hero {
-    padding: 45px 35px
+  .hero{
+    padding:45px 35px;
   }
 
-  .hero-text h1 {
-    font-size: 52px
+  .hero-text h1{
+    font-size:52px;
   }
 
   .two-col,
   .check-row,
-  .record-row {
-    grid-template-columns: 1fr
+  .record-row{
+    grid-template-columns:1fr;
   }
 
-  .button-row {
-    flex-direction: column
+  .button-row{
+    flex-direction:column;
+  }
+
+  .quiz-box{
+    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:650px) {
-  header {
-    padding: 0 20px
+@media(max-width:650px){
+
+  header{
+    padding:0 20px;
   }
 
-  nav {
-    display: none
+  nav{
+    display:none;
   }
 
-  .attempt-grid {
-    grid-template-columns: 1fr
+  .container{
+    width:92%;
+    margin:20px auto;
   }
 
-  .container {
-    width: 92%
+  .hero{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:36px 28px;
+    min-height:auto;
+  }
+
+  .hero-text h1{
+    font-size:42px;
+  }
+
+  .hero-text p{
+    font-size:16px;
+  }
+
+  .section{
+    padding:22px;
+  }
+
+  .form-box{
+    padding:22px;
+  }
+
+  .attempt-grid{
+    grid-template-columns:1fr;
+  }
+
+  .button-row{
+    flex-direction:column;
+  }
+
+  .main-btn,
+  .gray-btn,
+  .yellow-btn,
+  .red-btn{
+    width:100%;
+    font-size:16px;
+  }
+
+  .theme-select{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .theme-preview{
+    width:100%;
+    height:50px;
+  }
+
+  input,
+  select{
+    font-size:16px;
   }
 }
+
   </style>
  </head>
  <body>

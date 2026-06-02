@@ -523,6 +523,7 @@
     }
 
     @media(max-width:1200px){
+
       nav{
         gap:20px;
       }
@@ -547,6 +548,7 @@
     }
 
     @media(max-width:750px){
+
       header{
         padding:0 20px;
       }
@@ -555,14 +557,38 @@
         display:none;
       }
 
+      .container{
+        width:92%;
+        margin:20px auto;
+      }
+
       .hero{
         flex-direction:column;
         align-items:flex-start;
         padding:36px 28px;
+        min-height:auto;
       }
 
       .hero h1{
         font-size:42px;
+      }
+
+      .hero p{
+        font-size:16px;
+      }
+
+      .score-box{
+        width:100%;
+        min-width:0;
+        margin-top:20px;
+      }
+
+      .section{
+        padding:22px;
+      }
+
+      .quiz-box{
+        gap:24px;
       }
 
       .cube-net{
@@ -583,10 +609,38 @@
         padding:4px 7px;
       }
 
+      .game-panel{
+        padding:22px;
+      }
+
+      .question{
+        font-size:20px;
+      }
+
       .color-palette{
         grid-template-columns:repeat(2, 1fr);
       }
+
+      .color-btn{
+        height:56px;
+        font-size:14px;
+      }
+
+      .btn-row{
+        flex-direction:column;
+      }
+
+      .main-btn,
+      .sub-btn{
+        width:100%;
+        font-size:16px;
+      }
+
+      .result{
+        font-size:16px;
+      }
     }
+
   </style>
 </head>
 
