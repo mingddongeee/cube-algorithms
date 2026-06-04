@@ -695,7 +695,8 @@ body.dark .section-desc {
      리캡 카드 미리보기
     </div>
     <p class="section-desc">
-     입력한 대회 기록을 바탕으로 생성된 카드입니다. 수정이 필요하면 입력 페이지로 돌아갈 수 있습니다.
+     입력한 대회 기록을 바탕으로 생성된 카드입니다<br>
+     수정이 필요하면 입력 페이지로 돌아갈 수 있습니다
     </p>
    </div>
    <div class="recap-card" id="recapCard">
@@ -824,6 +825,7 @@ body.dark .section-desc {
   }
 };
 const lightThemes = ["#f8fafc", "#fef3c7", "#fde2e4", "#e0f2fe", "#dcfce7", "#ede9fe", "#ffedd5", "#ccfbf1", "#fae8ff", "#dbeafe"];
+let currentRecapData = null;
 
 function formatDate(dateValue) {
   if (!dateValue) return "대회 날짜";
@@ -835,10 +837,10 @@ function isLightTheme(color) {
   return lightThemes.includes(color)
 }
 
-function makeQR() {
+function makeQR(value = window.location.href) {
   new QRious({
     element: document.getElementById("qrCanvas"),
-    value: window.location.href,
+    value,
     size: 140,
     background: "white",
     foreground: "black"
@@ -863,6 +865,7 @@ async function loadRecapData() {
 }
 
 function makeCard(data) {
+  currentRecapData = data;
   const theme = data.theme || "#111111";
   const light = isLightTheme(theme);
   const recapCard = document.getElementById("recapCard");
@@ -946,17 +949,141 @@ function startNewRecap() {
   location.href = "/competition-recap.html?new=1";
 }
 
-function downloadCard() {
-  html2canvas(document.getElementById("recapCard"), {
-    scale: 2,
-    backgroundColor: null
-  }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "competition-recap.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+function makeCroppedPhotoDataUrl(src, boxWidth, boxHeight, zoom, posX, posY) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(boxWidth * 3);
+      canvas.height = Math.round(boxHeight * 3);
+
+      const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+
+      const scale = Math.max(boxWidth / img.naturalWidth, boxHeight / img.naturalHeight) * zoom;
+      const drawWidth = img.naturalWidth * scale;
+      const drawHeight = img.naturalHeight * scale;
+
+      const maxX = Math.max(0, drawWidth - boxWidth);
+      const maxY = Math.max(0, drawHeight - boxHeight);
+
+      const x = -maxX * (posX / 100);
+      const y = -maxY * (posY / 100);
+
+      const exportScale = 3;
+      ctx.scale(exportScale, exportScale);
+      ctx.drawImage(img, x, y, drawWidth, drawHeight);
+
+      resolve(canvas.toDataURL("image/png"));
+    };
+
+    img.onerror = reject;
+    img.src = src;
   });
 }
+
+
+function getSafeFileName() {
+  const fileName = (currentRecapData?.compName || "competition-recap")
+    .trim()
+    .replace(/[\\/:*?"<>|]/g, "_");
+
+  return fileName || "competition-recap";
+}
+
+async function makeCardCanvasForExport() {
+  const recapCard = document.getElementById("recapCard");
+  const photoBox = document.getElementById("photoBox");
+  const originalPhotoHTML = photoBox.innerHTML;
+
+  try {
+    if (currentRecapData && currentRecapData.uploadedImage && photoBox.style.display !== "none") {
+      const rect = photoBox.getBoundingClientRect();
+
+      const croppedPhoto = await makeCroppedPhotoDataUrl(
+        currentRecapData.uploadedImage,
+        rect.width,
+        rect.height,
+        parseFloat(currentRecapData.photoZoom || 1),
+        parseFloat(currentRecapData.photoX || 50),
+        parseFloat(currentRecapData.photoY || 50)
+      );
+
+      photoBox.innerHTML = `<img src="${croppedPhoto}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+    }
+
+    return await html2canvas(recapCard, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: null
+    });
+  } finally {
+    photoBox.innerHTML = originalPhotoHTML;
+  }
+}
+
+async function uploadRecapImageAndUpdateQR(canvas) {
+  const qrBox = document.getElementById("qrBox");
+
+  if (!currentRecapData?.showQr) return null;
+
+  try {
+    const imageData = canvas.toDataURL("image/png");
+
+    const res = await fetch("/uploadRecapImage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        image: imageData,
+        fileName: getSafeFileName()
+      })
+    });
+
+    if (!res.ok) throw new Error("upload failed");
+
+    const result = await res.json();
+
+    if (!result.imageUrl) throw new Error("imageUrl missing");
+
+    const imageUrl = new URL(result.imageUrl, window.location.origin).href;
+
+    qrBox.style.display = "block";
+    makeQR(imageUrl);
+
+    return imageUrl;
+  } catch (error) {
+    console.warn("QR 이미지 업로드 실패:", error);
+    makeQR(window.location.href);
+    return null;
+  }
+}
+
+async function prepareQrImageLink() {
+  if (!currentRecapData?.showQr) return;
+
+  const canvas = await makeCardCanvasForExport();
+  await uploadRecapImageAndUpdateQR(canvas);
+}
+
+async function downloadCard() {
+  const firstCanvas = await makeCardCanvasForExport();
+
+  if (currentRecapData?.showQr) {
+    await uploadRecapImageAndUpdateQR(firstCanvas);
+  }
+
+  const finalCanvas = await makeCardCanvasForExport();
+
+  const link = document.createElement("a");
+  link.download = `${getSafeFileName()}.png`;
+  link.href = finalCanvas.toDataURL("image/png");
+  link.click();
+}
+
 loadRecapData();
   </script>
  </body>

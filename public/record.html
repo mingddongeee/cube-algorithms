@@ -17,10 +17,12 @@
       font-family:sans-serif;
       padding:40px;
       color:#111;
+      overflow-x:hidden;
     }
 
     .record-wrap{
       width:760px;
+      max-width:100%;
       margin:0 auto;
     }
 
@@ -42,6 +44,7 @@
       border-right:2px solid #111;
       font-size:15px;
       line-height:1.5;
+      white-space:nowrap;
     }
 
     .top-cell:last-child{
@@ -58,38 +61,29 @@
     .name-box h1{
       font-size:36px;
       margin-bottom:6px;
-    }
-
-    .name-box p{
-      font-size:20px;
+      white-space:nowrap;
     }
 
     .name-line{
-        margin-top:20px;
-
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        gap:12px;
-
-        font-size:24px;
-        font-weight:bold;
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:12px;
+      font-size:24px;
+      font-weight:bold;
+      white-space:nowrap;
     }
 
     .name-line input{
-        width:250px;
-
-        border:none;
-        outline:none;
-
-        background:transparent;
-
-        padding:4px 0;
-
-        font-size:22px;
-        text-align:center;
-
-        font-weight:bold;
+      width:250px;
+      border:none;
+      outline:none;
+      background:transparent;
+      padding:4px 0;
+      font-size:22px;
+      text-align:center;
+      font-weight:bold;
     }
 
     .summary{
@@ -98,12 +92,14 @@
       margin-bottom:14px;
       font-size:16px;
       line-height:1.7;
+      white-space:nowrap;
     }
 
     table{
       width:100%;
       border-collapse:collapse;
       margin-bottom:14px;
+      table-layout:fixed;
     }
 
     th, td{
@@ -111,6 +107,7 @@
       padding:12px;
       text-align:center;
       font-size:18px;
+      white-space:nowrap;
     }
 
     th{
@@ -138,11 +135,13 @@
     .result-box h2{
       font-size:22px;
       margin-bottom:8px;
+      white-space:nowrap;
     }
 
     .result-box .ao5{
       font-size:48px;
       font-weight:bold;
+      white-space:nowrap;
     }
 
     .extra-table td{
@@ -155,6 +154,7 @@
       text-align:right;
       font-size:15px;
       line-height:1.7;
+      white-space:nowrap;
     }
 
     .button-row{
@@ -187,23 +187,29 @@
         padding:20px;
       }
 
-      .record-wrap{
-        width:100%;
+      .record-paper{
+        padding:20px;
+      }
+
+      .top-cell{
+        font-size:13px;
+        padding:8px;
       }
 
       .name-box h1{
-        font-size:28px;
+        font-size:30px;
       }
 
       .name-line{
-        flex-direction:column;
-        gap:8px;
-        font-size:20px;
+        font-size:21px;
       }
 
       .name-line input{
-        width:100%;
-        max-width:250px;
+        font-size:20px;
+      }
+
+      .summary{
+        font-size:14px;
       }
 
       th,
@@ -212,75 +218,186 @@
         padding:8px;
       }
 
-      .ao5{
-        font-size:38px !important;
+      .result-box h2{
+        font-size:20px;
+      }
+
+      .result-box .ao5{
+        font-size:40px;
+      }
+
+      .sign{
+        font-size:13px;
       }
     }
 
     @media(max-width:650px){
 
       body{
-        padding:12px;
+        padding:10px;
       }
 
       .record-paper{
-        padding:16px;
+        padding:10px;
+        border-width:2px;
       }
 
       .top-info{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr 1fr 1fr;
+        margin-bottom:10px;
+        border-width:1.5px;
       }
 
       .top-cell{
-        border-right:none;
-        border-bottom:2px solid #111;
+        font-size:9px;
+        padding:5px 3px;
+        border-right-width:1.5px;
       }
 
-      .top-cell:last-child{
-        border-bottom:none;
+      .name-box{
+        padding:10px;
+        margin-bottom:10px;
+        border-width:1.5px;
       }
 
       .name-box h1{
-        font-size:24px;
+        font-size:22px;
+      }
+
+      .name-line{
+        margin-top:12px;
+        flex-direction:row;
+        gap:6px;
+        font-size:15px;
+      }
+
+      .name-line input{
+        width:140px;
+        font-size:15px;
       }
 
       .summary{
-        font-size:14px;
+        padding:8px;
+        margin-bottom:10px;
+        font-size:10px;
+        line-height:1.6;
+        border-width:1.5px;
       }
 
       table{
-        display:block;
-        overflow-x:auto;
-        white-space:nowrap;
+        margin-bottom:10px;
       }
 
       th,
       td{
-        font-size:13px;
-        padding:6px;
+        font-size:10px;
+        padding:5px 3px;
+        border-width:1.5px;
+      }
+
+      .num{
+        width:38px;
+      }
+
+      .judge,
+      .comp{
+        width:58px;
+      }
+
+      .result-box{
+        padding:10px;
+        margin-bottom:10px;
+        border-width:1.5px;
       }
 
       .result-box h2{
-        font-size:18px;
+        font-size:15px;
+        margin-bottom:5px;
       }
 
       .result-box .ao5{
         font-size:30px;
       }
 
+      .extra-table td{
+        height:32px;
+      }
+
+      .sign{
+        padding-top:8px;
+        font-size:9px;
+        border-top-width:1.5px;
+      }
+
       .button-row{
+        margin-top:18px;
         flex-direction:column;
+        gap:10px;
       }
 
       .button-row a,
       .button-row button{
         width:100%;
         text-align:center;
-        font-size:16px;
+        font-size:15px;
+        padding:14px 20px;
+      }
+    }
+
+    @media(max-width:430px){
+
+      .record-paper{
+        padding:8px;
+      }
+
+      .top-cell{
+        font-size:8px;
+        padding:4px 2px;
+      }
+
+      .name-box h1{
+        font-size:20px;
+      }
+
+      .name-line{
+        font-size:14px;
+      }
+
+      .name-line input{
+        width:120px;
+        font-size:14px;
+      }
+
+      .summary{
+        font-size:9px;
+        padding:7px;
+      }
+
+      th,
+      td{
+        font-size:9px;
+        padding:4px 2px;
+      }
+
+      .num{
+        width:32px;
+      }
+
+      .judge,
+      .comp{
+        width:50px;
+      }
+
+      .result-box h2{
+        font-size:14px;
+      }
+
+      .result-box .ao5{
+        font-size:28px;
       }
 
       .sign{
-        font-size:13px;
+        font-size:8px;
       }
     }
 
@@ -315,11 +432,11 @@
         <h1>Ao5 기록지</h1>
 
         <div class="name-line">
-            <label>Name :</label>
-            <input type="text" id="competitorName">
+          <label>Name :</label>
+          <input type="text" id="competitorName">
         </div>
 
-     </div>
+      </div>
 
       <div class="summary">
         생성 시간 : <span id="createdAt">-</span><br>

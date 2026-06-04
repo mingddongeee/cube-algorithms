@@ -4,8 +4,12 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   Competition Recap 만들기
+   Competition Recap 결과
   </title>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js">
+  </script>
   <style>
    * {
   margin: 0;
@@ -44,28 +48,28 @@ header {
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 12px
 }
 
 .logo-icon {
-  font-size: 22px;
+  font-size: 22px
 }
 
 .logo h1 {
   color: white;
   font-size: 22px;
-  white-space: nowrap;
+  white-space: nowrap
 }
 
 .yellow {
-  color: #ffd400;
+  color: #ffd400
 }
 
 nav {
   display: flex;
   align-items: center;
   gap: 65px;
-  margin-left: 60px;
+  margin-left: 60px
 }
 
 nav a {
@@ -75,17 +79,17 @@ nav a {
   font-weight: 500;
   padding: 28px 0;
   position: relative;
-  transition: 0.2s;
+  transition: 0.2s
 }
 
 nav>a:hover,
 .dropdown>a:hover {
-  color: #facc15;
+  color: #facc15
 }
 
 nav>a.active,
 .dropdown>a.active {
-  color: #facc15;
+  color: #facc15
 }
 
 nav>a.active::after,
@@ -97,15 +101,15 @@ nav>a.active::after,
   width: 100%;
   height: 4px;
   background: #facc15;
-  border-radius: 999px;
+  border-radius: 999px
 }
 
 .dropdown {
-  position: relative;
+  position: relative
 }
 
 .dropdown>a {
-  display: block;
+  display: block
 }
 
 .dropdown-menu {
@@ -117,17 +121,17 @@ nav>a.active::after,
   padding: 10px;
   background: #111;
   border-radius: 18px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .3);
   opacity: 0;
   visibility: hidden;
-  transition: 0.2s;
-  z-index: 999;
+  transition: .2s;
+  z-index: 999
 }
 
 .dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0)
 }
 
 .dropdown-menu a {
@@ -137,12 +141,12 @@ nav>a.active::after,
   font-size: 15px;
   font-weight: 500;
   border-radius: 12px;
-  white-space: nowrap;
+  white-space: nowrap
 }
 
 .dropdown-menu a:hover {
   background: #facc15;
-  color: #111;
+  color: #111
 }
 
 .icon-btn {
@@ -155,13 +159,13 @@ nav>a.active::after,
   justify-content: center;
   align-items: center;
   font-size: 22px;
-  transition: 0.2s;
-  cursor: pointer;
+  transition: .2s;
+  cursor: pointer
 }
 
 .icon-btn:hover {
   border: 2px solid white;
-  transform: translateY(-2px);
+  transform: translateY(-2px)
 }
 
 .container {
@@ -169,66 +173,17 @@ nav>a.active::after,
   margin: 30px auto;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-}
-
-.hero {
-  background: #fff7df;
-  border-radius: 30px;
-  padding: 55px 70px;
-  min-height: 310px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #f3df9c;
+  gap: 24px
 }
 
-.hero::after {
-  content: "";
-  width: 180px;
-  height: 180px;
-  border: 5px solid #ffe58a;
-  border-radius: 25px;
-  position: absolute;
-  right: -40px;
-  bottom: -35px;
-  opacity: 0.35;
-}
-
-.hero-text {
-  position: relative;
-  z-index: 2;
-}
-
-.page-label {
-  display: inline-block;
-  background: #ffd400;
-  color: black;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 18px;
-}
-
-.hero-text h1 {
-  font-size: 66px;
-  margin-bottom: 22px;
-}
-
-.hero-text p {
-  font-size: 20px;
-  line-height: 1.7;
-  color: #333;
-}
-
-.section {
+.result-head {
+  width: 760px;
+  max-width: 100%;
   background: white;
-  border-radius: 28px;
-  padding: 32px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .05)
 }
 
 .section-title {
@@ -237,269 +192,389 @@ nav>a.active::after,
   gap: 10px;
   font-size: 26px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 14px
 }
 
 .title-bar {
   width: 6px;
   height: 30px;
   background: #ffd400;
-  border-radius: 999px;
+  border-radius: 999px
 }
 
 .section-desc {
   color: #555;
   font-size: 16px;
-  line-height: 1.7;
-  margin-bottom: 24px;
+  line-height: 1.7
 }
 
-.form-box {
-  background: #fff7df;
-  border: 1px solid #f3df9c;
-  border-radius: 26px;
-  padding: 32px;
-}
-
-label {
-  display: block;
-  font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #ddd;
-  border-radius: 14px;
-  font-size: 15px;
-  background: white;
-}
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.check-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 14px;
-  padding: 11px;
-  font-weight: bold;
-  font-size: 13px;
-}
-
-.check-label input {
-  width: auto;
-}
-
-.theme-select {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.theme-preview {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  flex-shrink: 0;
-}
-
-.photo-controls {
-  display: none;
-  background: #f4f4f5;
-  border-radius: 18px;
-  padding: 16px;
-  margin-top: 12px;
-}
-
-.event-form {
-  background: #f4f4f5;
-  border-radius: 20px;
-  padding: 18px;
-  margin-top: 18px;
-  border: 1px solid #e5e7eb;
-}
-
-.form-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.remove-btn {
-  width: auto;
-  margin: 0;
-  padding: 7px 10px;
-  background: #ef4444;
-  color: white;
-  border-radius: 10px;
-  font-size: 12px;
-}
-
-.attempt-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 7px;
-}
-
-.attempt-grid input {
-  padding: 10px 8px;
-  text-align: center;
-  font-size: 13px;
-}
-
-.auto-result {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.auto-box {
-  background: white;
-  border-radius: 14px;
-  padding: 12px;
-  border: 1px solid #ddd;
-}
-
-.auto-box span {
-  display: block;
-  color: #777;
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-
-.auto-box strong {
-  font-size: 18px;
-}
-
-.check-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.record-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.custom-event-wrap {
-  display: none;
-}
-
-.red-check {
-  accent-color: #ef4444;
-}
-
-.blue-check {
-  accent-color: #3b82f6;
-}
-
-.gold-check {
-  accent-color: #facc15;
-}
-
-.button-row {
+.action-row {
+  width: 760px;
+  max-width: 100%;
   display: flex;
   gap: 14px;
-  justify-content: center;
-  margin-top: 26px;
+   justify-content: center;
 }
 
-.main-btn,
-.gray-btn,
-.yellow-btn,
-.red-btn {
+.action-row button {
   padding: 16px 34px;
   border-radius: 16px;
   font-size: 18px;
   font-weight: bold;
-  transition: 0.2s;
+  transition: .2s
 }
 
-.main-btn,
 .yellow-btn {
   background: #ffd400;
-  color: black;
+  color: black
+}
+
+.red-btn{
+  background:white;
+  border:1px solid #ddd;
 }
 
 .gray-btn {
-  background: white;
-  color: #333;
-  border: 1px solid #e5e7eb;
+  background:white;
+  border:1px solid #ddd;
 }
 
-.red-btn {
-  background: #ef4444;
+.action-row button:hover {
+  transform: translateY(-3px)
+}
+
+.recap-card {
+  width: 760px;
+  background: #111;
   color: white;
+  border-radius: 32px;
+  padding: 34px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25)
 }
 
-.main-btn:hover,
-.gray-btn:hover,
-.yellow-btn:hover,
-.red-btn:hover {
-  transform: translateY(-3px);
+.recap-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px
+}
+
+.qr-box {
+  width: 74px;
+  height: 74px;
+  background: white;
+  border-radius: 14px;
+  padding: 7px;
+  flex-shrink: 0;
+  display: none
+}
+
+.qr-box canvas {
+  width: 100%;
+  height: 100%
+}
+
+.best-staff-badge {
+  background: #a855f7;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+  display: none;
+  text-align: center;
+  margin-bottom: 12px
+}
+
+.main-badge {
+  display: inline-block;
+  background: #facc15;
+  color: #111;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 13px;
+  margin-bottom: 10px
+}
+
+.recap-title h2 {
+  font-size: 34px;
+  line-height: 1.1;
+  margin-bottom: 8px
+}
+
+.date,
+.venue,
+.player-info {
+  color: rgba(255, 255, 255, .78);
+  font-size: 14px;
+  line-height: 1.5
+}
+
+.first-badge {
+  display: inline-block;
+  background: #facc15;
+  color: #111;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  margin-top: 4px
+}
+
+.photo-box {
+  width: 100%;
+  height: 210px;
+  background: rgba(255, 255, 255, .12);
+  border-radius: 24px;
+  margin-bottom: 22px;
+  overflow: hidden;
+  display: none;
+  align-items: center;
+  justify-content: center
+}
+
+.photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  display: block
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px
+}
+
+.summary-item {
+  background: rgba(255, 255, 255, .13);
+  border-radius: 18px;
+  padding: 15px 10px;
+  text-align: center
+}
+
+.summary-item strong {
+  display: block;
+  font-size: 22px;
+  color: #facc15
+}
+
+.summary-item span {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .78)
+}
+
+.pr-detail {
+  font-size: 12px;
+  font-weight: 800;
+  margin-top: 3px;
+  color: inherit;
+  opacity: .85
+}
+
+.award-section {
+  display: none;
+  background: rgba(255, 255, 255, .13);
+  border-radius: 18px;
+  padding: 15px;
+  margin-bottom: 18px
+}
+
+.award-section h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #facc15
+}
+
+.award-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px
+}
+
+.award-pill {
+  background: #facc15;
+  color: #111;
+  border-radius: 999px;
+  padding: 7px 11px;
+  font-size: 13px;
+  font-weight: 900
+}
+
+.event-list {
+  display: grid;
+  gap: 14px
+}
+
+.event-group-title {
+  color: #facc15;
+  font-size: 18px;
+  font-weight: 900;
+  margin-top: 8px;
+  margin-bottom: -4px
+}
+
+.event-card {
+  background: white;
+  color: #111;
+  border-radius: 22px;
+  padding: 18px
+}
+
+.event-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px
+}
+
+.event-left {
+  display: flex;
+  gap: 12px;
+  align-items: center
+}
+
+.event-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  background: #f4f4f5;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: bold
+}
+
+.event-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  padding: 0;
+}
+
+.event-name {
+  font-size: 20px;
+  font-weight: 900
+}
+
+.round-name {
+  color: #777;
+  font-size: 13px;
+  margin-top: 3px
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end
+}
+
+.rank,
+.medal-badge,
+.avg-pr-badge,
+.single-pr-badge,
+.record-badge {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap
+}
+
+.rank {
+  background: #111;
+  color: white
+}
+
+.medal-badge {
+  background: #facc15;
+  color: #111
+}
+
+.avg-pr-badge {
+  background: #ef4444;
+  color: white
+}
+
+.single-pr-badge {
+  background: #3b82f6;
+  color: white
+}
+
+.record-badge {
+  background: #111827;
+  color: white
+}
+
+.result-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px
+}
+
+.result-box {
+  flex: 1;
+  background: #f4f4f5;
+  border-radius: 14px;
+  padding: 10px
+}
+
+.result-box span {
+  display: block;
+  color: #777;
+  font-size: 12px;
+  margin-bottom: 4px
+}
+
+.result-box strong {
+  font-size: 18px
+}
+
+.attempts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px
+}
+
+.attempt {
+  background: #facc15;
+  color: #111;
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: bold
+}
+
+.footer {
+  margin-top: 22px;
+  text-align: center;
+  color: rgba(255, 255, 255, .72);
+  font-size: 13px
 }
 
 body.dark {
   background: #111827;
-  color: white;
+  color: white
 }
 
-body.dark .hero,
-body.dark .section {
+body.dark .result-head {
   background: #1f2937;
   border-color: #374151;
-  box-shadow: none;
+  box-shadow: none
 }
 
-body.dark .hero-text p,
 body.dark .section-desc {
-  color: #cbd5e1;
-}
-
-body.dark .form-box {
-  background: #111827;
-  border-color: #374151;
-}
-
-body.dark .event-form {
-  background: #111827;
-  border-color: #374151;
-}
-
-body.dark input,
-body.dark select,
-body.dark .check-label,
-body.dark .auto-box {
-  background: #1f2937;
-  color: white;
-  border-color: #374151;
-}
-
-body.dark .photo-controls {
-  background: #111827;
-}
-
-body.dark .hero::after {
-  border-color: #374151;
+  color: #cbd5e1
 }
 
 @media(max-width:1000px){
@@ -509,26 +584,14 @@ body.dark .hero::after {
     margin-left:0;
   }
 
-  .hero{
-    padding:45px 35px;
+  .recap-card,
+  .result-head,
+  .action-row{
+    width:100%;
   }
 
-  .hero-text h1{
-    font-size:52px;
-  }
-
-  .two-col,
-  .check-row,
-  .record-row{
-    grid-template-columns:1fr;
-  }
-
-  .button-row{
+  .action-row{
     flex-direction:column;
-  }
-
-  .quiz-box{
-    grid-template-columns:1fr;
   }
 }
 
@@ -543,866 +606,522 @@ body.dark .hero::after {
   }
 
   .container{
-    width:92%;
+    width:95%;
     margin:20px auto;
   }
 
-  .hero{
+  .result-head{
+    padding:18px;
+  }
+
+  .section-title{
+    font-size:20px;
+  }
+
+  .section-desc{
+    font-size:13px;
+  }
+
+  .recap-card{
+    padding:18px;
+    border-radius:22px;
+  }
+
+  .recap-title h2{
+    font-size:24px;
+  }
+
+  .photo-box{
+    height:170px;
+  }
+
+  .summary{
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+
+  .summary-item{
+    padding:10px 6px;
+  }
+
+  .summary-item strong{
+    font-size:18px;
+  }
+
+  .summary-item span{
+    font-size:10px;
+  }
+
+  .pr-detail{
+    font-size:10px;
+  }
+
+  .event-card{
+    padding:14px;
+  }
+
+  .event-icon{
+    width:42px;
+    height:42px;
+  }
+
+  .event-name{
+    font-size:17px;
+  }
+
+  .round-name{
+    font-size:11px;
+  }
+
+  .badges{
+    gap:4px;
+  }
+
+  .rank,
+  .medal-badge,
+  .avg-pr-badge,
+  .single-pr-badge,
+  .record-badge{
+    font-size:10px;
+    padding:4px 7px;
+  }
+
+  .result-row{
+    flex-direction:row;
+  }
+
+  .result-box{
+    padding:8px;
+  }
+
+  .result-box strong{
+    font-size:15px;
+  }
+
+  .result-box span{
+    font-size:10px;
+  }
+
+  .attempt{
+    font-size:10px;
+    padding:5px 7px;
+  }
+
+  .footer{
+    font-size:11px;
+  }
+
+  .action-row{
     flex-direction:column;
-    align-items:flex-start;
-    padding:36px 28px;
-    min-height:auto;
   }
 
-  .hero-text h1{
-    font-size:42px;
-  }
-
-  .hero-text p{
-    font-size:16px;
-  }
-
-  .section{
-    padding:22px;
-  }
-
-  .form-box{
-    padding:22px;
-  }
-
-  .attempt-grid{
-    grid-template-columns:1fr;
-  }
-
-  .button-row{
-    flex-direction:column;
-  }
-
-  .main-btn,
-  .gray-btn,
-  .yellow-btn,
-  .red-btn{
+  .action-row button{
     width:100%;
-    font-size:16px;
-  }
-
-  .theme-select{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .theme-preview{
-    width:100%;
-    height:50px;
-  }
-
-  input,
-  select{
-    font-size:16px;
+    font-size:15px;
   }
 }
 
   </style>
  </head>
  <body>
-  <header>
-   <a href="home.html" class="logo">
-    <div class="logo-icon">
-     🧊
-    </div>
-    <h1>
-     Cube
-     <span class="yellow">
-      Algorithms
-     </span>
-    </h1>
-   </a>
-   
-   <nav>
-      <a href="home.html">홈</a>
-
-      <div class="dropdown">
-        <a href="1-0.cfop.html">CFOP</a>
-        <div class="dropdown-menu">
-          <a href="1-2.cfop_cross.html">Cross</a>
-          <a href="1-3.cfop_f2l.html">F2L</a>
-          <a href="1-4.cfop_oll.html">OLL</a>
-          <a href="1-5.cfop_pll.html">PLL</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="#">Links</a>
-        <div class="dropdown-menu">
-          <a href="wca.html">WCA</a>
-          <a href="cubemania.html">큐브매니아</a>
-          <a href="cstimer.html">csTimer</a>
-        </div>
-      </div>
-
-      <div class="dropdown">
-        <a href="#" class="active">Utilities</a>
-        <div class="dropdown-menu">
-          <a href="Ao5.html">Ao5 Calculator</a>
-          <a href="competition-recap.html">Competition Recap</a>
-        </div>
-      </div>
-    </nav>
-
-   <div class="icon-btn" id="themeBtn">
-    ⛭
-   </div>
-  </header>
   <div class="container">
-   <div class="hero">
-    <div class="hero-text">
-     <div class="page-label">
-      COMPETITION RECAP
-     </div>
-     <h1>
-      리캡 만들기
-     </h1>
-     <p>
-      참가한 대회의 기록과 사진을<br> 
-      한 장의 카드로 깔끔하게 정리해보세요
-     </p>
-    </div>
-   </div>
-   <div class="section">
+   <div class="result-head">
     <div class="section-title">
      <div class="title-bar">
      </div>
-     대회 기록 입력
+     리캡 카드 미리보기
     </div>
     <p class="section-desc">
-     대회 정보와 종목별 기록을 입력한 뒤 리캡 만들기 버튼을 눌러주세요
+     입력한 대회 기록을 바탕으로 생성된 카드입니다<br>
+     수정이 필요하면 입력 페이지로 돌아갈 수 있습니다
     </p>
-    <div class="form-box">
-     <label>
-      대회명
-     </label>
-     <input id="compName" placeholder="대회명을 입력하세요"/>
-     <label>
-      날짜
-     </label>
-     <input id="compDate" type="date"/>
-     <label>
-      대회 장소
-     </label>
-     <input id="compVenue" placeholder="예: 서울시립대학교"/>
-     <label>
-      대회 사진
-     </label>
-     <input accept="image/*" id="photoInput" type="file"/>
-     <div class="photo-controls" id="photoControls">
-      <label>
-       사진 확대
-      </label>
-      <input id="photoZoom" max="2" min="1" step="0.05" type="range" value="1"/>
-      <label>
-       가로 위치
-      </label>
-      <input id="photoX" max="100" min="0" step="1" type="range" value="50"/>
-      <label>
-       세로 위치
-      </label>
-      <input id="photoY" max="100" min="0" step="1" type="range" value="50"/>
-      <button class="red-btn" onclick="deletePhoto()" type="button">
-       사진 삭제
-      </button>
-     </div>
-     <label>
-      참가자 이름
-     </label>
-     <div class="two-col">
-      <input id="playerKr" placeholder="한글 이름"/>
-      <input id="playerEn" placeholder="English Name"/>
-     </div>
-     <label>
-      WCA ID
-     </label>
-     <input id="wcaId" placeholder="WCA ID를 입력하세요"/>
-     <label class="check-label">
-      <input id="firstComp" type="checkbox"/>
-      첫 대회 참가자
-     </label>
-     <label class="check-label">
-      <input id="isWcaCompetition" type="checkbox"/>
-      WCA 공인 대회
-     </label>
-     <label class="check-label">
-      <input id="bestStaff" type="checkbox"/>
-      베스트 스태프상
-     </label>
-     <label class="check-label">
-      <input id="showQr" type="checkbox"/>
-      QR 코드 표시
-     </label>
-     <label>
-      카드 배경색
-     </label>
-     <div class="theme-select">
-      <select id="cardTheme">
-       <option value="#111111">
-        Black
-       </option>
-       <option value="#f8fafc">
-        Pastel White
-       </option>
-       <option value="#fef3c7">
-        Pastel Yellow
-       </option>
-       <option value="#fde2e4">
-        Pastel Pink
-       </option>
-       <option value="#e0f2fe">
-        Pastel Blue
-       </option>
-       <option value="#dcfce7">
-        Pastel Green
-       </option>
-       <option value="#ede9fe">
-        Pastel Purple
-       </option>
-       <option value="#ffedd5">
-        Pastel Orange
-       </option>
-       <option value="#ccfbf1">
-        Pastel Mint
-       </option>
-       <option value="#fae8ff">
-        Pastel Violet
-       </option>
-       <option value="#dbeafe">
-        Soft Sky
-       </option>
-       <option value="#1e293b">
-        Navy
-       </option>
-       <option value="#581c87">
-        Deep Purple
-       </option>
-       <option value="#7f1d1d">
-        Red Wine
-       </option>
-      </select>
-      <div class="theme-preview" id="themePreview">
+   </div>
+   <div class="recap-card" id="recapCard">
+    <div class="best-staff-badge" id="bestStaffBadge">
+     BEST STAFF AWARD
+    </div>
+    <div class="recap-top">
+     <div>
+      <div class="main-badge" id="mainBadge">
+       CUBE RECAP
+      </div>
+      <div class="recap-title">
+       <h2 id="cardTitle">
+        대회명을 입력하세요
+       </h2>
+       <div class="date" id="cardDate">
+        대회 날짜
+       </div>
+       <div class="venue" id="cardVenue">
+        대회 장소
+       </div>
+       <div class="player-info" id="playerInfo">
+        참가자 정보를 입력하세요
+       </div>
       </div>
      </div>
-     <div id="eventForms">
-     </div>
-     <div class="button-row">
-      <button class="gray-btn" onclick="addEventForm()" type="button">
-       + 종목 기록 추가
-      </button>
-      <button class="red-btn" onclick="startNewRecap()" type="button">
-       새로 만들기
-      </button>
-      <button class="main-btn" onclick="saveRecapAndMove()" type="button">
-       리캡 만들기 &rarr;
-      </button>
+     <div class="qr-box" id="qrBox">
+      <canvas id="qrCanvas">
+      </canvas>
      </div>
     </div>
+    <div class="photo-box" id="photoBox">
+    </div>
+    <div class="summary">
+     <div class="summary-item">
+      <strong id="eventCount">
+       0
+      </strong>
+      <span>
+       Events
+      </span>
+     </div>
+     <div class="summary-item">
+      <strong id="bestRank">
+       -
+      </strong>
+      <span>
+       Best Rank
+      </span>
+     </div>
+     <div class="summary-item">
+      <strong id="totalPrCount">
+       0
+      </strong>
+      <span>
+       Total PR
+      </span>
+      <div class="pr-detail">
+       Avg
+       <span id="avgPrCount">
+        0
+       </span>
+       &middot; Single
+       <span id="singlePrCount">
+        0
+       </span>
+      </div>
+     </div>
+    </div>
+    <div class="award-section" id="awardSection">
+     <h3>
+      Awards
+     </h3>
+     <div class="award-list" id="awardList">
+     </div>
+    </div>
+    <div class="event-list" id="eventList">
+    </div>
+    <div class="footer">
+     Made for cubers &middot; Competition Memories
+    </div>
+   </div>
+   <div class="action-row">
+    <button class="gray-btn" onclick="location.href='/competition-recap.html'">
+     수정하기
+    </button>
+    <button class="red-btn" onclick="startNewRecap()">
+     새로 만들기
+    </button>
+    <button class="yellow-btn" onclick="downloadCard()">
+     이미지 저장하기
+    </button>
    </div>
   </div>
   <script>
-   const themeBtn = document.getElementById("themeBtn");
-themeBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  themeBtn.innerHTML = document.body.classList.contains("dark") ? "☾" : "⛭";
-});
-let uploadedImage = "";
-const eventOptions = [{
-  name: "3x3x3 Cube",
-  short: "3x3",
-  order: 1,
-  img: "/cube_logo/3x3x3.png",
-  calcType: "ao5"
-}, {
-  name: "2x2x2 Cube",
-  short: "2x2",
-  order: 2,
-  img: "/cube_logo/2x2x2.png",
-  calcType: "ao5"
-}, {
-  name: "4x4x4 Cube",
-  short: "4x4",
-  order: 3,
-  img: "/cube_logo/4x4x4.png",
-  calcType: "ao5"
-}, {
-  name: "5x5x5 Cube",
-  short: "5x5",
-  order: 4,
-  img: "/cube_logo/5x5x5.png",
-  calcType: "ao5"
-}, {
-  name: "6x6x6 Cube",
-  short: "6x6",
-  order: 5,
-  img: "/cube_logo/6x6x6.png",
-  calcType: "mo3"
-}, {
-  name: "7x7x7 Cube",
-  short: "7x7",
-  order: 6,
-  img: "/cube_logo/7x7x7.png",
-  calcType: "mo3"
-}, {
-  name: "3x3x3 Blindfolded",
-  short: "3BLD",
-  order: 7,
-  img: "/cube_logo/3x3x3 Blindfolded.png",
-  calcType: "bo3"
-}, {
-  name: "3x3x3 Fewest Moves",
-  short: "FMC",
-  order: 8,
-  img: "/cube_logo/3x3x3 Fewest Moves.png",
-  calcType: "fmc"
-}, {
-  name: "3x3x3 One-Handed",
-  short: "OH",
-  order: 9,
-  img: "/cube_logo/3x3x3 One-Handed.png",
-  calcType: "ao5"
-}, {
-  name: "Clock",
-  short: "Clock",
-  order: 10,
-  img: "/cube_logo/Clock.png",
-  calcType: "ao5"
-}, {
-  name: "Megaminx",
-  short: "Megaminx",
-  order: 11,
-  img: "/cube_logo/Megaminx.png",
-  calcType: "ao5"
-}, {
-  name: "Pyraminx",
-  short: "Pyraminx",
-  order: 12,
-  img: "/cube_logo/Pyraminx.png",
-  calcType: "ao5"
-}, {
-  name: "Skewb",
-  short: "Skewb",
-  order: 13,
-  img: "/cube_logo/Skewb.png",
-  calcType: "ao5"
-}, {
-  name: "Square-1",
-  short: "Square-1",
-  order: 14,
-  img: "/cube_logo/Square-1.png",
-  calcType: "ao5"
-}, {
-  name: "4x4x4 Blindfolded",
-  short: "4BLD",
-  order: 15,
-  img: "/cube_logo/4x4x4 Blindfolded.png",
-  calcType: "bo3"
-}, {
-  name: "5x5x5 Blindfolded",
-  short: "5BLD",
-  order: 16,
-  img: "/cube_logo/5x5x5 Blindfolded.png",
-  calcType: "bo3"
-}, {
-  name: "3x3x3 Multi-Blind",
-  short: "MBLD",
-  order: 17,
-  img: "/cube_logo/3x3x3 Multi-Blind.png",
-  calcType: "single"
-}];
-const calcOptions = {
+   const calcOptions = {
   ao5: {
     label: "Average of 5",
-    inputs: 5,
     avgLabel: "Average",
     bestLabel: "Best"
   },
   mo3: {
     label: "Mean of 3",
-    inputs: 3,
     avgLabel: "Mean",
     bestLabel: "Best"
   },
   bo3: {
     label: "Best of 3",
-    inputs: 3,
     avgLabel: "Result",
     bestLabel: "Best"
   },
   wo3: {
     label: "Worst of 3",
-    inputs: 3,
     avgLabel: "Result",
     bestLabel: "Worst"
   },
   single: {
     label: "Single Only",
-    inputs: 1,
     avgLabel: "Result",
     bestLabel: "Best"
   },
   fmc: {
     label: "FMC Mean",
-    inputs: 3,
     avgLabel: "Mean",
     bestLabel: "Best"
   }
 };
-const roundOrder = {
-  "1Round": 1,
-  "2Round": 2,
-  "3Round": 3,
-  "4Round": 4,
-  "5Round": 5,
-  "Final": 6,
-  "Head-to-Head": 7
-};
 const lightThemes = ["#f8fafc", "#fef3c7", "#fde2e4", "#e0f2fe", "#dcfce7", "#ede9fe", "#ffedd5", "#ccfbf1", "#fae8ff", "#dbeafe"];
-["compName", "compDate", "compVenue", "playerKr", "playerEn", "wcaId", "firstComp", "isWcaCompetition", "bestStaff", "showQr", "cardTheme", "photoZoom", "photoX", "photoY"].forEach(id => {
-  document.getElementById(id).addEventListener("input", handleMainInput);
-  document.getElementById(id).addEventListener("change", handleMainInput);
-});
-document.getElementById("photoInput").addEventListener("change", e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    uploadedImage = ev.target.result;
-    document.getElementById("photoControls").style.display = "block";
-  };
-  reader.readAsDataURL(file);
-});
+let currentRecapData = null;
 
-function handleMainInput() {
-  const firstComp = document.getElementById("firstComp"),
-    wcaId = document.getElementById("wcaId");
-  if (firstComp.checked) {
-    wcaId.value = "";
-    wcaId.disabled = true;
-    wcaId.placeholder = "첫 참가자는 WCA ID 없음";
-  } else {
-    wcaId.disabled = false;
-    wcaId.placeholder = "WCA ID를 입력하세요";
-  }
-  updateThemePreview();
+function formatDate(dateValue) {
+  if (!dateValue) return "대회 날짜";
+  const d = new Date(dateValue);
+  return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;
 }
 
-function updateThemePreview() {
-  document.getElementById("themePreview").style.background = document.getElementById("cardTheme").value;
+function isLightTheme(color) {
+  return lightThemes.includes(color)
 }
 
-function deletePhoto() {
-  uploadedImage = "";
-  document.getElementById("photoInput").value = "";
-  document.getElementById("photoControls").style.display = "none";
-  document.getElementById("photoZoom").value = 1;
-  document.getElementById("photoX").value = 50;
-  document.getElementById("photoY").value = 50;
-}
-
-function makeEventOptions(selected) {
-  const official = eventOptions.map(e => `<option value="${e.short}" ${selected===e.short?"selected":""}>${e.name}</option>`).join("");
-  return `<optgroup label="WCA 공인 종목">${official}</optgroup><option value="CUSTOM" ${selected==="CUSTOM"?"selected":""}>직접 입력</option>`;
-}
-
-function makeCalcOptions(selected) {
-  return Object.entries(calcOptions).map(([v, i]) => `<option value="${v}" ${selected===v?"selected":""}>${i.label}</option>`).join("");
-}
-
-function getEventInfo(short) {
-  return eventOptions.find(e => e.short === short) || null;
-}
-
-function addEventForm(eventData = null) {
-  const eventForms = document.getElementById("eventForms");
-  const form = document.createElement("div");
-  form.className = "event-form";
-  form.innerHTML = `<div class="form-head"><strong>종목 기록</strong><button class="remove-btn" onclick="removeEventForm(this)">삭제</button></div><label>종목명</label><select class="event-select">${makeEventOptions("3x3")}</select><div class="custom-event-wrap"><label>직접 입력 종목명</label><input class="custom-event-input" placeholder="예: FTO, Team Blind, Relay"></div><label>계산 방식</label><select class="calc-type-select">${makeCalcOptions("ao5")}</select><label>라운드</label><select class="round-input"><option>1Round</option><option>2Round</option><option>3Round</option><option>4Round</option><option>5Round</option><option>Final</option><option>Head-to-Head</option></select><div class="two-col"><div><label>내 순위</label><input class="rank-input" placeholder="예: 57"></div><div><label>전체 인원</label><input class="total-input" placeholder="예: 182"></div></div><label>Attempts</label><div class="attempt-grid"></div><div class="auto-result"><div class="auto-box"><span class="avg-title">Average</span><strong class="auto-avg">-</strong></div><div class="auto-box"><span class="best-title">Best</span><strong class="auto-best">-</strong></div></div><label>상 받은 종목</label><select class="medal-input" disabled><option value="">Final / Head-to-Head에서만 선택</option><option value="1st">1등</option><option value="2nd">2등</option><option value="3rd">3등</option></select><div class="check-row"><label class="check-label"><input type="checkbox" class="avg-pr-input red-check">Average PR</label><label class="check-label"><input type="checkbox" class="single-pr-input blue-check">Single PR</label></div><div class="record-row"><label class="check-label"><input type="checkbox" class="wr-input gold-check">WR</label><label class="check-label"><input type="checkbox" class="cr-input gold-check">CR</label><label class="check-label"><input type="checkbox" class="nr-input gold-check">NR</label></div>`;
-  eventForms.appendChild(form);
-  form.querySelector(".event-select").addEventListener("change", () => {
-    syncCalcTypeWithEvent(form);
-    updateEventForm(form);
-  });
-  form.querySelectorAll("input, select").forEach(el => {
-    el.addEventListener("input", () => updateEventForm(form));
-    el.addEventListener("change", () => updateEventForm(form));
-  });
-  if (eventData) {
-    fillEventForm(form, eventData);
-  } else {
-    syncCalcTypeWithEvent(form);
-    updateEventForm(form);
-  }
-}
-
-
-function fillEventForm(form, eventData) {
-  const knownEvent = getEventInfo(eventData.event);
-  const eventSelect = form.querySelector(".event-select");
-  const customInput = form.querySelector(".custom-event-input");
-  const calcSelect = form.querySelector(".calc-type-select");
-
-  eventSelect.value = knownEvent ? eventData.event : "CUSTOM";
-  customInput.value = knownEvent ? "" : (eventData.event || "");
-
-  syncCalcTypeWithEvent(form);
-
-  calcSelect.value = eventData.calcType || (knownEvent ? knownEvent.calcType : "ao5");
-  form.querySelector(".round-input").value = eventData.round || "1Round";
-  form.querySelector(".rank-input").value = eventData.rank || "";
-  form.querySelector(".total-input").value = eventData.total || "";
-  form.querySelector(".avg-pr-input").checked = !!eventData.avgPr;
-  form.querySelector(".single-pr-input").checked = !!eventData.singlePr;
-  form.querySelector(".wr-input").checked = !!eventData.wr;
-  form.querySelector(".cr-input").checked = !!eventData.cr;
-  form.querySelector(".nr-input").checked = !!eventData.nr;
-
-  updateAttemptInputs(form);
-
-  const attemptInputs = form.querySelectorAll(".attempt-input");
-  (eventData.attempts || []).forEach((value, index) => {
-    if (attemptInputs[index]) {
-      attemptInputs[index].value = value;
-    }
-  });
-
-  updateEventForm(form);
-
-  const medal = form.querySelector(".medal-input");
-  if (eventData.medal && !medal.disabled) {
-    medal.value = eventData.medal;
-  }
-}
-
-function syncCalcTypeWithEvent(form) {
-  const eventShort = form.querySelector(".event-select").value;
-  const eventInfo = getEventInfo(eventShort);
-  const customWrap = form.querySelector(".custom-event-wrap");
-  const calcSelect = form.querySelector(".calc-type-select");
-  customWrap.style.display = eventShort === "CUSTOM" ? "block" : "none";
-  if (eventInfo) calcSelect.value = eventInfo.calcType || "ao5";
-}
-
-function updateAttemptInputs(form) {
-  const calcType = form.querySelector(".calc-type-select").value;
-  const count = calcOptions[calcType].inputs;
-  const grid = form.querySelector(".attempt-grid");
-  const oldValues = [...grid.querySelectorAll(".attempt-input")].map(i => i.value);
-  if (grid.querySelectorAll(".attempt-input").length === count) return;
-  grid.innerHTML = "";
-  grid.style.gridTemplateColumns = `repeat(${Math.min(count,5)},1fr)`;
-  for (let i = 0; i < count; i++) {
-    const input = document.createElement("input");
-    input.className = "attempt-input";
-    input.placeholder = String(i + 1);
-    input.value = oldValues[i] || "";
-    input.addEventListener("input", () => updateEventForm(form));
-    input.addEventListener("change", () => updateEventForm(form));
-    grid.appendChild(input);
-  }
-}
-
-function updateEventForm(form) {
-  updateAttemptInputs(form);
-  const round = form.querySelector(".round-input").value;
-  const medal = form.querySelector(".medal-input");
-  if (round === "Final" || round === "Head-to-Head") {
-    medal.disabled = false;
-    medal.options[0].textContent = "없음";
-  } else {
-    medal.value = "";
-    medal.disabled = true;
-    medal.options[0].textContent = "Final / Head-to-Head에서만 선택";
-  }
-  const calcType = form.querySelector(".calc-type-select").value;
-  const calculated = calculateResult(getAttemptsFromForm(form), calcType);
-  form.querySelector(".avg-title").textContent = calcOptions[calcType].avgLabel;
-  form.querySelector(".best-title").textContent = calcOptions[calcType].bestLabel;
-  form.querySelector(".auto-avg").textContent = calculated.avg;
-  form.querySelector(".auto-best").textContent = calculated.best;
-}
-
-function removeEventForm(button) {
-  const forms = document.querySelectorAll(".event-form");
-  if (forms.length <= 1) {
-    alert("종목 기록은 최소 1개 있어야 합니다.");
-    return;
-  }
-  button.closest(".event-form").remove();
-}
-
-function getAttemptsFromForm(form) {
-  return [...form.querySelectorAll(".attempt-input")].map(i => i.value.trim()).filter(v => v);
-}
-
-function parseTimeToSeconds(value) {
-  const upper = value.toUpperCase();
-  if (upper === "DNF" || upper === "DNS") return null;
-  if (value.includes(":")) {
-    const parts = value.split(":"),
-      m = parseFloat(parts[0]),
-      s = parseFloat(parts[1]);
-    if (isNaN(m) || isNaN(s)) return null;
-    return m * 60 + s;
-  }
-  const seconds = parseFloat(value);
-  return isNaN(seconds) ? null : seconds;
-}
-
-function formatSeconds(seconds) {
-  if (seconds === null) return "DNF";
-  if (seconds >= 60) {
-    const min = Math.floor(seconds / 60);
-    const sec = (seconds % 60).toFixed(2).padStart(5, "0");
-    return `${min}:${sec}`;
-  }
-  return seconds.toFixed(2);
-}
-
-function calculateFmc(attempts) {
-  if (attempts.length === 0) return {
-    avg: "-",
-    best: "-"
-  };
-  const nums = attempts.map(v => {
-    const u = v.toUpperCase();
-    if (u === "DNF" || u === "DNS") return null;
-    const n = parseFloat(v);
-    return isNaN(n) ? null : n;
-  });
-  const valid = nums.filter(n => n !== null);
-  const best = valid.length ? String(Math.min(...valid)) : "DNF";
-  if (nums.length < 3) return {
-    avg: "-",
-    best
-  };
-  if (nums.some(n => n === null)) return {
-    avg: "DNF",
-    best
-  };
-  const mean = nums.reduce((s, n) => s + n, 0) / nums.length;
-  return {
-    avg: mean.toFixed(2),
-    best
-  };
-}
-
-function calculateResult(attempts, calcType) {
-  if (calcType === "fmc") return calculateFmc(attempts);
-  if (attempts.length === 0) return {
-    avg: "-",
-    best: "-"
-  };
-  const parsed = attempts.map(time => ({
-    raw: time,
-    sec: parseTimeToSeconds(time)
-  }));
-  const valid = parsed.filter(t => t.sec !== null);
-  const best = valid.length ? formatSeconds(Math.min(...valid.map(t => t.sec))) : "DNF";
-  if (calcType === "wo3") {
-    const worst = parsed.some(t => t.sec === null) ? "DNF" : formatSeconds(Math.max(...parsed.map(t => t.sec)));
-    return {
-      avg: "-",
-      best: worst
-    };
-  }
-  if (calcType === "single" || calcType === "bo3") return {
-    avg: "-",
-    best
-  };
-  if (calcType === "mo3") {
-    if (parsed.length < 3) return {
-      avg: "-",
-      best
-    };
-    if (parsed.some(t => t.sec === null)) return {
-      avg: "DNF",
-      best
-    };
-    return {
-      avg: formatSeconds(parsed.reduce((s, t) => s + t.sec, 0) / parsed.length),
-      best
-    };
-  }
-  if (calcType === "ao5") {
-    if (parsed.length < 5) return {
-      avg: "-",
-      best
-    };
-    const sorted = [...parsed].sort((a, b) => {
-      if (a.sec === null && b.sec === null) return 0;
-      if (a.sec === null) return 1;
-      if (b.sec === null) return -1;
-      return a.sec - b.sec;
-    });
-    const middle = sorted.slice(1, 4);
-    if (middle.some(t => t.sec === null)) return {
-      avg: "DNF",
-      best
-    };
-    return {
-      avg: formatSeconds(middle.reduce((s, t) => s + t.sec, 0) / 3),
-      best
-    };
-  }
-  return {
-    avg: "-",
-    best
-  };
-}
-
-function getEventData() {
-  return [...document.querySelectorAll(".event-form")].map(form => {
-    const eventShort = form.querySelector(".event-select").value;
-    const eventInfo = getEventInfo(eventShort);
-    const calcType = form.querySelector(".calc-type-select").value;
-    const attempts = getAttemptsFromForm(form);
-    const calculated = calculateResult(attempts, calcType);
-    const customName = form.querySelector(".custom-event-input").value.trim();
-    const eventName = eventInfo ? eventInfo.short : (customName || "Custom");
-    return {
-      event: eventName,
-      eventFullName: eventInfo ? eventInfo.name : eventName,
-      eventImg: eventInfo ? eventInfo.img : "",
-      eventOrder: eventInfo ? eventInfo.order : 999,
-      calcType,
-      avgLabel: calcOptions[calcType].avgLabel,
-      bestLabel: calcOptions[calcType].bestLabel,
-      round: form.querySelector(".round-input").value,
-      roundOrder: roundOrder[form.querySelector(".round-input").value],
-      rank: form.querySelector(".rank-input").value.trim(),
-      total: form.querySelector(".total-input").value.trim(),
-      avg: calculated.avg,
-      best: calculated.best,
-      attempts,
-      medal: form.querySelector(".medal-input").disabled ? "" : form.querySelector(".medal-input").value,
-      avgPr: form.querySelector(".avg-pr-input").checked,
-      singlePr: form.querySelector(".single-pr-input").checked,
-      wr: form.querySelector(".wr-input").checked,
-      cr: form.querySelector(".cr-input").checked,
-      nr: form.querySelector(".nr-input").checked
-    };
-  }).sort((a, b) => {
-    if (a.eventOrder !== b.eventOrder) return a.eventOrder - b.eventOrder;
-    if (a.event !== b.event) return a.event.localeCompare(b.event);
-    return a.roundOrder - b.roundOrder;
+function makeQR(value = window.location.href) {
+  new QRious({
+    element: document.getElementById("qrCanvas"),
+    value,
+    size: 140,
+    background: "white",
+    foreground: "black"
   });
 }
-
-function collectRecapData() {
-  return {
-    compName: document.getElementById("compName").value.trim(),
-    compDate: document.getElementById("compDate").value,
-    compVenue: document.getElementById("compVenue").value.trim(),
-    playerKr: document.getElementById("playerKr").value.trim(),
-    playerEn: document.getElementById("playerEn").value.trim(),
-    wcaId: document.getElementById("wcaId").value.trim(),
-    firstComp: document.getElementById("firstComp").checked,
-    isWcaCompetition: document.getElementById("isWcaCompetition").checked,
-    bestStaff: document.getElementById("bestStaff").checked,
-    showQr: document.getElementById("showQr").checked,
-    theme: document.getElementById("cardTheme").value,
-    uploadedImage,
-    photoZoom: document.getElementById("photoZoom").value,
-    photoX: document.getElementById("photoX").value,
-    photoY: document.getElementById("photoY").value,
-    events: getEventData()
-  };
-}
-
-function applySavedRecapData(data) {
-  if (!data) return;
-
-  document.getElementById("compName").value = data.compName || "";
-  document.getElementById("compDate").value = data.compDate || "";
-  document.getElementById("compVenue").value = data.compVenue || "";
-  document.getElementById("playerKr").value = data.playerKr || "";
-  document.getElementById("playerEn").value = data.playerEn || "";
-  document.getElementById("wcaId").value = data.wcaId || "";
-  document.getElementById("firstComp").checked = !!data.firstComp;
-  document.getElementById("isWcaCompetition").checked = !!data.isWcaCompetition;
-  document.getElementById("bestStaff").checked = !!data.bestStaff;
-  document.getElementById("showQr").checked = !!data.showQr;
-  document.getElementById("cardTheme").value = data.theme || data.cardTheme || "#111111";
-  document.getElementById("photoZoom").value = data.photoZoom || "1";
-  document.getElementById("photoX").value = data.photoX || "50";
-  document.getElementById("photoY").value = data.photoY || "50";
-
-  uploadedImage = data.uploadedImage || data.photoData || "";
-  document.getElementById("photoControls").style.display = uploadedImage ? "block" : "none";
-
-  document.getElementById("eventForms").innerHTML = "";
-
-  if (data.events && data.events.length > 0) {
-    data.events.forEach(eventData => addEventForm(eventData));
-  } else {
-    addEventForm();
-  }
-
-  handleMainInput();
-  updateThemePreview();
-}
-
-function loadSavedRecapData() {
-  const params = new URLSearchParams(window.location.search);
-
-  if (params.get("new") === "1") {
-    sessionStorage.removeItem("competitionRecapData");
-    addEventForm();
-    updateThemePreview();
-    return;
-  }
-
+async function loadRecapData() {
+  let data = null;
   const saved = sessionStorage.getItem("competitionRecapData");
-
-  if (!saved) {
-    addEventForm();
-    updateThemePreview();
+  if (saved) data = JSON.parse(saved);
+  if (!data) {
+    try {
+      const res = await fetch("/getRecap");
+      data = await res.json();
+    } catch (e) {}
+  }
+  if (!data || !data.events) {
+    alert("저장된 리캡 데이터가 없습니다. 입력 페이지로 이동합니다.");
+    location.href = "/competition-recap.html";
     return;
   }
-
-  try {
-    applySavedRecapData(JSON.parse(saved));
-  } catch (error) {
-    sessionStorage.removeItem("competitionRecapData");
-    addEventForm();
-    updateThemePreview();
-  }
+  makeCard(data);
 }
+
+function makeCard(data) {
+  currentRecapData = data;
+  const theme = data.theme || "#111111";
+  const light = isLightTheme(theme);
+  const recapCard = document.getElementById("recapCard");
+  recapCard.style.background = theme;
+  recapCard.style.color = light ? "#111" : "white";
+  document.querySelectorAll(".date,.venue,.player-info,.footer").forEach(el => {
+    el.style.color = light ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.78)"
+  });
+  document.querySelectorAll(".summary-item").forEach(el => {
+    el.style.background = light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.13)"
+  });
+  document.querySelectorAll(".summary-item span").forEach(el => {
+    el.style.color = light ? "rgba(0,0,0,0.65)" : "rgba(255,255,255,0.78)"
+  });
+  document.getElementById("awardSection").style.background = light ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.13)";
+  document.getElementById("mainBadge").textContent = data.isWcaCompetition ? "WCA COMPETITION" : "CUBE RECAP";
+  document.getElementById("cardTitle").textContent = data.compName || "대회명을 입력하세요";
+  document.getElementById("cardDate").textContent = formatDate(data.compDate);
+  document.getElementById("cardVenue").textContent = data.compVenue || "대회 장소";
+  let infoHTML = "";
+  const nameLine = `${data.playerKr||""} ${data.playerEn||""}`.trim();
+  if (nameLine) infoHTML += `<div>${nameLine}</div>`;
+  if (data.wcaId) infoHTML += `<div>WCA ID: ${data.wcaId}</div>`;
+  if (data.firstComp) infoHTML += `<div><span class="first-badge">FIRST COMPETITION</span></div>`;
+  document.getElementById("playerInfo").innerHTML = infoHTML || "참가자 정보를 입력하세요";
+  document.getElementById("bestStaffBadge").style.display = data.bestStaff ? "block" : "none";
+  const qrBox = document.getElementById("qrBox");
+  qrBox.style.display = data.showQr ? "block" : "none";
+  if (data.showQr) makeQR();
+  const photoBox = document.getElementById("photoBox");
+  if (data.uploadedImage) {
+    photoBox.style.display = "flex";
+    photoBox.innerHTML = `<img src="${data.uploadedImage}" style="transform:scale(${data.photoZoom||1}); object-position:${data.photoX||50}% ${data.photoY||50}%">`;
+  } else {
+    photoBox.style.display = "none";
+    photoBox.innerHTML = "";
+  }
+  const events = data.events || [];
+  const eventList = document.getElementById("eventList");
+  eventList.innerHTML = "";
+  let ranks = [],
+    avgPrCount = 0,
+    singlePrCount = 0,
+    awards = [],
+    currentEvent = "";
+  events.forEach(item => {
+    if (item.rank && !isNaN(parseInt(item.rank))) ranks.push(parseInt(item.rank));
+    if (item.avgPr) avgPrCount++;
+    if (item.singlePr) singlePrCount++;
+    if (item.medal) awards.push(`${item.event} ${item.medal}`);
+    if (item.event !== currentEvent) {
+      currentEvent = item.event;
+      eventList.innerHTML += `<div class="event-group-title">${item.event}</div>`;
+    }
+    const rankText = item.rank && item.total ? `${item.rank} / ${item.total}` : item.rank ? item.rank : "";
+    const medalText = item.medal === "1st" ? "🥇 1st" : item.medal === "2nd" ? "🥈 2nd" : item.medal === "3rd" ? "🥉 3rd" : "";
+    const attemptsHTML = (item.attempts || []).map(a => `<span class="attempt">${a}</span>`).join("");
+    const iconHTML = item.eventImg ? `<img src="${item.eventImg}" onerror="this.style.display='none';this.parentElement.textContent='${item.event}'">` : `${item.event}`;
+    eventList.innerHTML += `<div class="event-card"><div class="event-top"><div class="event-left"><div class="event-icon">${iconHTML}</div><div><div class="event-name">${item.event}</div><div class="round-name">${item.round} · ${calcOptions[item.calcType]?.label||""}</div></div></div><div class="badges">${medalText?`<span class="medal-badge">${medalText}</span>`:""}${item.avgPr?`<span class="avg-pr-badge">Avg PR</span>`:""}${item.singlePr?`<span class="single-pr-badge">Single PR</span>`:""}${item.wr?`<span class="record-badge">WR</span>`:""}${item.cr?`<span class="record-badge">CR</span>`:""}${item.nr?`<span class="record-badge">NR</span>`:""}${rankText?`<span class="rank">${rankText}</span>`:""}</div></div><div class="result-row"><div class="result-box"><span>${item.avgLabel}</span><strong>${item.avg}</strong></div><div class="result-box"><span>${item.bestLabel}</span><strong>${item.best}</strong></div></div><div class="attempts">${attemptsHTML}</div></div>`;
+  });
+  if (data.bestStaff) awards.unshift("Best Staff Award");
+  const awardSection = document.getElementById("awardSection"),
+    awardList = document.getElementById("awardList");
+  if (awards.length) {
+    awardSection.style.display = "block";
+    awardList.innerHTML = awards.map(a => `<span class="award-pill">${a}</span>`).join("");
+  } else {
+    awardSection.style.display = "none";
+    awardList.innerHTML = "";
+  }
+  document.getElementById("eventCount").textContent = events.length;
+  document.getElementById("bestRank").textContent = ranks.length ? Math.min(...ranks) : "-";
+  document.getElementById("avgPrCount").textContent = avgPrCount;
+  document.getElementById("singlePrCount").textContent = singlePrCount;
+  document.getElementById("totalPrCount").textContent = avgPrCount + singlePrCount;
+}
+
 
 function startNewRecap() {
-  const ok = confirm("입력 중인 리캡 정보를 모두 지우고 새로 만들까요?");
-
-  if (!ok) return;
-
   sessionStorage.removeItem("competitionRecapData");
   location.href = "/competition-recap.html?new=1";
 }
 
-async function saveRecapAndMove() {
-  const data = collectRecapData();
-  sessionStorage.setItem("competitionRecapData", JSON.stringify(data));
+function makeCroppedPhotoDataUrl(src, boxWidth, boxHeight, zoom, posX, posY) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(boxWidth * 3);
+      canvas.height = Math.round(boxHeight * 3);
+
+      const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+
+      const scale = Math.max(boxWidth / img.naturalWidth, boxHeight / img.naturalHeight) * zoom;
+      const drawWidth = img.naturalWidth * scale;
+      const drawHeight = img.naturalHeight * scale;
+
+      const maxX = Math.max(0, drawWidth - boxWidth);
+      const maxY = Math.max(0, drawHeight - boxHeight);
+
+      const x = -maxX * (posX / 100);
+      const y = -maxY * (posY / 100);
+
+      const exportScale = 3;
+      ctx.scale(exportScale, exportScale);
+      ctx.drawImage(img, x, y, drawWidth, drawHeight);
+
+      resolve(canvas.toDataURL("image/png"));
+    };
+
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+
+function getSafeFileName() {
+  const fileName = (currentRecapData?.compName || "competition-recap")
+    .trim()
+    .replace(/[\\/:*?"<>|]/g, "_");
+
+  return fileName || "competition-recap";
+}
+
+async function makeCardCanvasForExport() {
+  const recapCard = document.getElementById("recapCard");
+  const photoBox = document.getElementById("photoBox");
+  const originalPhotoHTML = photoBox.innerHTML;
+
   try {
-    await fetch("/saveRecap", {
+    if (currentRecapData && currentRecapData.uploadedImage && photoBox.style.display !== "none") {
+      const rect = photoBox.getBoundingClientRect();
+
+      const croppedPhoto = await makeCroppedPhotoDataUrl(
+        currentRecapData.uploadedImage,
+        rect.width,
+        rect.height,
+        parseFloat(currentRecapData.photoZoom || 1),
+        parseFloat(currentRecapData.photoX || 50),
+        parseFloat(currentRecapData.photoY || 50)
+      );
+
+      photoBox.innerHTML = `<img src="${croppedPhoto}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
+    }
+
+    return await html2canvas(recapCard, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: null
+    });
+  } finally {
+    photoBox.innerHTML = originalPhotoHTML;
+  }
+}
+
+async function uploadRecapImageAndUpdateQR(canvas) {
+  const qrBox = document.getElementById("qrBox");
+
+  if (!currentRecapData?.showQr) return null;
+
+  try {
+    const imageData = canvas.toDataURL("image/png");
+
+    const res = await fetch("/uploadRecapImage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        image: imageData,
+        fileName: getSafeFileName()
+      })
     });
-  } catch (e) {}
 
-  window.open(
-    "/recap-result.html",
-    "_blank"
-  );
+    if (!res.ok) throw new Error("upload failed");
+
+    const result = await res.json();
+
+    if (!result.imageUrl) throw new Error("imageUrl missing");
+
+    const imageUrl = new URL(result.imageUrl, window.location.origin).href;
+
+    qrBox.style.display = "block";
+    makeQR(imageUrl);
+
+    return imageUrl;
+  } catch (error) {
+    console.warn("QR 이미지 업로드 실패:", error);
+    makeQR(window.location.href);
+    return null;
+  }
 }
-loadSavedRecapData();
+
+async function prepareQrImageLink() {
+  if (!currentRecapData?.showQr) return;
+
+  const canvas = await makeCardCanvasForExport();
+  await uploadRecapImageAndUpdateQR(canvas);
+}
+
+async function downloadCard() {
+  const firstCanvas = await makeCardCanvasForExport();
+
+  if (currentRecapData?.showQr) {
+    await uploadRecapImageAndUpdateQR(firstCanvas);
+  }
+
+  const finalCanvas = await makeCardCanvasForExport();
+
+  const link = document.createElement("a");
+  link.download = `${getSafeFileName()}.png`;
+  link.href = finalCanvas.toDataURL("image/png");
+  link.click();
+}
+
+loadRecapData();
   </script>
  </body>
 </html>
